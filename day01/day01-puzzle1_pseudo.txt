@@ -1,0 +1,16 @@
+declare int increases
+declare int previous
+declare list input
+
+read file day01-puzzle1_input.csv
+input = contents of csv (ints)
+
+for each (int i in input){
+    if (increases = null)
+        {increases = 0}
+    else if (i > previous)
+        {increases++}
+    previous = i
+}
+
+return increases
