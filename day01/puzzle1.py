@@ -1,7 +1,7 @@
 increases = 0
 previous = None
 
-with open('/home/adam/Documents/Repos/adventofcode2021/day01/puzzle1_input.txt') as txtfile:
+with open('/home/adam/Documents/Repos/adventofcode2021/day01/day01_input.txt') as txtfile:
     input = list(map(int, txtfile.read().split('\n')))
 
 for i in input:
