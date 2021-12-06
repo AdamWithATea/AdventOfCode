@@ -1,18 +1,21 @@
+with open('/home/adam/Documents/Repos/adventofcode/2021/day02/input.txt') as input:
+    directions = list(map(str, input.read().split('\n')))
+    
 horizontal = 0
 depth = 0
 
-with open('/home/adam/Documents/Repos/adventofcode2021/day02/input.txt') as txtfile:
-    input = list(map(str, txtfile.read().split('\n')))
-
-for index in range(len(input)):
-    splitList = input[index].split(' ')
-    if splitList[0] == 'forward':
-        horizontal += int(splitList[1])
-    elif splitList[0] == 'down':
-        depth += int(splitList[1])
-    elif splitList[0] == 'up':
-        depth -= int(splitList[1])
+for instruction in directions:
+    #Split the full instruction into direction and distance
+    direction = instruction.split(' ')[0]
+    distance = instruction.split(' ')[1]
+    if direction == 'forward':
+        horizontal += int(distance)
+    elif direction == 'down':
+        depth += int(distance)
+    elif direction == 'up':
+        depth -= int(distance)
 
 answer = horizontal * depth
 
 print(answer)
+#The result should be 1989014

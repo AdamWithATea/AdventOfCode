@@ -1,25 +1,31 @@
+#Completely unnecessary alternative solution to Day 2 Puzzle 1 just to play around with functions
+
+with open('/home/adam/Documents/Repos/adventofcode/2021/day02/input.txt') as input:
+    directions = list(map(str, input.read().split('\n')))
+    
 horizontal = 0
 depth = 0
 
-def forward(int):
+def forward(distance):
     global horizontal
-    horizontal += int
+    horizontal += distance
 
-def down(int):
+def down(distance):
     global depth
-    depth += int
+    depth += distance
 
-def up(int):
+def up(distance):
     global depth
-    depth -= int
+    depth -= distance
 
-with open('/home/adam/Documents/Repos/adventofcode2021/day02/input.txt') as txtfile:
-    input = list(map(str, txtfile.read().split('\n')))
-
-for index in range(len(input)):
-    splitList = input[index].split(' ')
-    eval(splitList[0] + '(' + splitList[1] + ')')
+for instruction in directions:
+    #Split the full instruction into direction and distance
+    direction = instruction.split(' ')[0]
+    distance = instruction.split(' ')[1]
+    #Turn string values into a working command in order to call a different function depending on the direction
+    eval(direction + '(' + distance + ')')
 
 answer = horizontal * depth
 
 print(answer)
+#The result should be 1989014
