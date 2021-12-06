@@ -1,15 +1,15 @@
-increases = 0
-previous = None
-
-with open('/home/adam/Documents/Repos/adventofcode2021/day01/input.txt') as txtfile:
-    input = list(map(int, txtfile.read().split('\n')))
-
-for i in input:
-    i = int(i)
+with open('/home/adam/Documents/Repos/adventofcode/2021/day01/input.txt') as input:
+    measurements = list(map(int, input.read().split('\n')))
     
-    if previous != None and i > previous:
+increases = 0
+previousDepth = None
+
+for depth in measurements:
+    #Increment if this isn't the first measurement and the depth has increased
+    if previousDepth != None and depth > previousDepth:
        increases += 1
 
-    previous = i
+    previousDepth = depth
 
 print(increases)
+#The result should be 1791
