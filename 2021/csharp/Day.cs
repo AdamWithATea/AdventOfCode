@@ -3,8 +3,8 @@ namespace AdventOfCode
   abstract class Day
   {
     public virtual void Main(string filepath)
-    ///Most days seem to be fine with an array of strings but Main
-    /// can be overridden on days when another data type is better
+    ///Main can be overridden on days when ReadAllLines isn't
+    /// the best way to build the input list
     {
       string[] file = File.ReadAllLines(filepath);
       List<string> input = new List<string>(file);
@@ -13,14 +13,14 @@ namespace AdventOfCode
       Part2(input);
     }
 
+    //Ensure that all days have a valid Part1() and Part2()
+    // so Main() can call them both and pass the input list
     public abstract void Part1(List<string> input);
-
     public abstract void Part2(List<string> input);
 
     public string CheckAnswer(int result, int expected)
-    ///To be used after a puzzle is solved to ensure any future changes
-    /// don't break the existing functionality (because apparently I find
-    /// it impossible to let sleeping code lie).
+    ///To be used after a puzzle is solved and the correct answer is
+    /// known to see at a glance if any future changes break anything
     {
       string outcome;
 
