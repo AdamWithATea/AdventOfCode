@@ -6,16 +6,16 @@ namespace AdventOfCode
     ///Most days seem to be fine with an array of strings but Main
     /// can be overridden on days when another data type is better
     {
-      string[] input;
-      input = File.ReadAllLines(filepath);
+      string[] file = File.ReadAllLines(filepath);
+      List<string> input = new List<string>(file);
 
       Part1(input);
       Part2(input);
     }
 
-    public abstract void Part1(string[] input);
+    public abstract void Part1(List<string> input);
 
-    public abstract void Part2(string[] input);
+    public abstract void Part2(List<string> input);
 
     public string CheckAnswer(int result, int expected)
     ///To be used after a puzzle is solved to ensure any future changes
