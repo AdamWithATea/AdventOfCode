@@ -6,6 +6,7 @@ namespace AdventOfCode
         {            
             string gamma = "", epsilon = "";
             int position = 0;
+            //Fill strings with the right number of characters, to be replaced as the bits are calculated below
             gamma = gamma.PadLeft(diagnostics[0].Length, '#');
             epsilon = epsilon.PadLeft(diagnostics[0].Length, '#');            
             
@@ -59,17 +60,21 @@ namespace AdventOfCode
         }
         
         static (string most, string least) BitFrequency(List<string> diagnostics, int position)
+        //Calculate the most and least common bit in the current postion in all strings
         {
-            int count = 0, sum = 0;
+            int count = 0, ones = 0;
             string mostCommonBit, leastCommonBit;
 
             foreach (string diagnostic in diagnostics)
             {                                
                 int bit = int.Parse(diagnostic[position].ToString());
-                sum += bit;
+                //Just adds the bit rather than checking if it's a 1
+                // because if it's a 0 that won't affect the value
+                ones += bit;
                 count++;
             }
-            if (sum < count-sum)
+            if (ones < count-ones)
+            //count-ones = the number of 0s in the string
             {
                 mostCommonBit = "0";
                 leastCommonBit = "1";

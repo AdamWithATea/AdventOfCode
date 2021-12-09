@@ -5,7 +5,6 @@ namespace AdventOfCode
     public override void Part1(List<string> readings)
     {       
       int increases = CountDepthIncreases(readings, 1);
-
       int answer = 1791;
       string outcome = CheckAnswer(increases, answer);
       System.Console.WriteLine($"Day 1-1: {increases} {outcome}");
@@ -14,7 +13,6 @@ namespace AdventOfCode
     public override void Part2(List<string> readings)
     {
       int increases = CountDepthIncreases(readings, 3);
-
       int answer = 1822;
       string outcome = CheckAnswer(increases, answer);
       System.Console.WriteLine($"Day 1-2: {increases} {outcome}");
@@ -24,9 +22,12 @@ namespace AdventOfCode
     {
       int currentSum = 0, previousSum = 0, increases = 0, depth, index = 0, indexDiff = groupSize - 1;
 
+      //This loop uses indexDiff to run until there are no more full-sized groups to
+      /// add together, e.g. a group of 3 items will start 2 indexes before the end 
       while (index < readings.Count - indexDiff)
       {
         int i=0; 
+        ///Add at least the first depth reading to the sum, then loop if more depths exist
         do{
           depth = Convert.ToInt32(readings[index+i]);
           currentSum += depth;
@@ -34,6 +35,7 @@ namespace AdventOfCode
           }        
         while (i < groupSize);
         
+        //Increment if this isn't the first measurement and the depth has increased
         if(previousSum != 0 && currentSum > previousSum)
             {increases++;}
 
