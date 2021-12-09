@@ -2,13 +2,13 @@ namespace AdventOfCode
 {
     class Day03 : Day
     {
-        public override void Part1(string[] diagnostics)
-        {
+        public override void Part1(List<string> diagnostics)
+        {            
             string gamma = "", epsilon = "";
             int position = 0;
             gamma = gamma.PadLeft(diagnostics[0].Length, '#');
-            epsilon = epsilon.PadLeft(diagnostics[0].Length, '#');
-
+            epsilon = epsilon.PadLeft(diagnostics[0].Length, '#');            
+            
             while (position < diagnostics[0].Length)
             {
                 var (mostCommonBit, leastCommonBit) = BitFrequency(diagnostics, position);
@@ -22,12 +22,43 @@ namespace AdventOfCode
             string outcome = CheckAnswer(powerConsumption, answer);
             System.Console.WriteLine($"Day 3-1: {powerConsumption} {outcome}");
         }
-        public override void Part2(string[] diagnostics)
+        public override void Part2(List<string> diagnostics)
         {
+            int o2 = CalculateLifeSupport(diagnostics, "o2");
+            int co2 = CalculateLifeSupport(diagnostics, "co2");           
             
+            int lifeSupport = o2*co2;
+            int answer = 4996233;
+            string outcome = CheckAnswer(lifeSupport, answer);
+            System.Console.WriteLine($"Day 3-2: {lifeSupport} {outcome}");
+        }
+
+        static int CalculateLifeSupport(List<string> diagnostics, string task)
+        {
+            string comparisonBit;
+
+            for (int position = 0; position < diagnostics[0].Length && diagnostics.Count > 1; position++)
+            {
+                var (mostCommonBit, leastCommonBit) = BitFrequency(diagnostics, position);
+                switch (task)
+                {
+                    case "co2":
+                        comparisonBit = leastCommonBit;
+                        break;
+                    default:
+                        comparisonBit = mostCommonBit;
+                        break;
+                }
+
+                diagnostics = diagnostics.Where(x => Convert.ToString(x[position]) == comparisonBit).ToList();
+                
+            }
+            
+            int rating = Convert.ToInt32(diagnostics[0], 2);
+            return rating;
         }
         
-        static (string most, string least) BitFrequency(string[] diagnostics, int position)
+        static (string most, string least) BitFrequency(List<string> diagnostics, int position)
         {
             int count = 0, sum = 0;
             string mostCommonBit, leastCommonBit;

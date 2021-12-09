@@ -2,7 +2,7 @@ namespace AdventOfCode
 {
     class Day02 : Day
     {
-        public override void Part1(string[] directions)
+        public override void Part1(List<string> directions)
         {
             int destination = PlotCourse(directions);
             int answer = 1989014;
@@ -10,7 +10,7 @@ namespace AdventOfCode
             System.Console.WriteLine($"Day 2-1: {destination} {outcome}");
         }
 
-        public override void Part2(string[] directions)
+        public override void Part2(List<string> directions)
         {
             int aim = 0;
             int destination = PlotCourse(directions, aim);
@@ -19,7 +19,7 @@ namespace AdventOfCode
             System.Console.WriteLine($"Day 2-2: {destination} {outcome}");
         }
 
-        static int PlotCourse(string[] directions)
+        static int PlotCourse(List<string> directions)
         {
             int horizontal = 0, depth = 0;
             foreach (string direction in directions)
@@ -42,7 +42,7 @@ namespace AdventOfCode
             return destination;
         }
 
-        static int PlotCourse(string[] directions, int aim)
+        static int PlotCourse(List<string> directions, int aim)
         {
             int horizontal = 0, depth = 0;
             foreach (string direction in directions)
