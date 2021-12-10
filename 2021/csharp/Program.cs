@@ -10,4 +10,4 @@ Day03 day03 = new Day03();
 day03.Main("../inputs/day03.txt");
 
 Day04 day04 = new Day04();
-day04.Main("../examples/day04.txt");
+day04.Main("../inputs/day04.txt");
