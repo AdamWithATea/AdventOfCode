@@ -2,10 +2,9 @@ namespace AdventOfCode
 {
     class Day04 : Day
     {
-        public override void Main(string filepath)
         //Main is overriden today because this input file is divided by double line
         // breaks, meaning this Split() works better than the usual ReadAllLines()
-        {
+        public override void Main(string filepath){
             string[] file = File.ReadAllText(filepath).Split(Environment.NewLine + Environment.NewLine);
             List<string> input = new List<string>(file);
 

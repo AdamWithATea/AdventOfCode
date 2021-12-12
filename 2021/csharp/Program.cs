@@ -1,13 +1,22 @@
 ﻿using AdventOfCode;
 
-Day01 day01 = new Day01();
-day01.Main("../inputs/day01.txt");
+int latestDay = 6;
+Boolean exampleForLatestDay = false;
+var days = new List<Day>{
+    new Day01(),
+    new Day02(),
+    new Day03(),
+    new Day04(),
+    new Day05(),
+    new Day06(),
+    };
 
-Day02 day02 = new Day02();
-day02.Main("../inputs/day02.txt");
-
-Day03 day03 = new Day03();
-day03.Main("../inputs/day03.txt");
-
-Day04 day04 = new Day04();
-day04.Main("../inputs/day04.txt");
+string inputFolder = "inputs";
+string fileName = "";
+for (int day = 1; day <= latestDay; day++){
+    if (day < 10) {fileName = $"day0{day}";}
+    else {fileName = $"day{day}";}
+    if (exampleForLatestDay == true && day == latestDay) {inputFolder = "examples";}
+    string filepath = $"../{inputFolder}/{fileName}.txt";
+    days[day-1].Main(filepath);
+    }
