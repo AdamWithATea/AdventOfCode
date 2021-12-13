@@ -1,6 +1,6 @@
 ﻿using AdventOfCode;
 
-int latestDay = 6;
+int latestDay = 7;
 Boolean exampleForLatestDay = false;
 var days = new List<Day>{
     new Day01(),
@@ -9,6 +9,7 @@ var days = new List<Day>{
     new Day04(),
     new Day05(),
     new Day06(),
+    new Day07(),
     };
 
 string inputFolder = "inputs";
