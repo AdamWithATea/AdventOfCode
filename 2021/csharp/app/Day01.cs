@@ -1,16 +1,24 @@
 namespace AdventOfCode;
-class Day01 : Day{
-    public override void Part1(List<string> readings){
+public class Day01 : Day{
+    public override Int64 Part1(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> readings = new List<string>(file);
+
         int increases = CountDepthIncreases(readings, 1);
         int answer = 1791;
         string outcome = CheckAnswer(increases, answer);
         System.Console.WriteLine($"Day 1-1: {increases} {outcome}");
+        return increases;
     }
-    public override void Part2(List<string> readings){
+    public override Int64 Part2(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> readings = new List<string>(file);
+        
         int increases = CountDepthIncreases(readings, 3);
         int answer = 1822;
         string outcome = CheckAnswer(increases, answer);
         System.Console.WriteLine($"Day 1-2: {increases} {outcome}");
+        return increases;
     }
     static int CountDepthIncreases(List<string> readings, int groupSize){
         int currentSum = 0, previousSum = 0, increases = 0, depth, index = 0, indexDiff = groupSize - 1;

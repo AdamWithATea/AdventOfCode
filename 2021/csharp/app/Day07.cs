@@ -1,25 +1,26 @@
 namespace AdventOfCode;
-class Day07 : Day{
-    public override void Main(string filepath){
-        //Main is overriden today because this input file is divided by commas,
-        // meaning this Split() works better than the usual ReadAllLines()
+public class Day07 : Day{
+    public override Int64 Part1(string filepath){
         string[] file = File.ReadAllText(filepath).Split(',');
-        List<string> input = new List<string>(file);
-        Part1(input);
-        Part2(input);}
-    public override void Part1(List<string> crabStrings){
+        List<string> crabStrings = new List<string>(file);
+
         List<int> crabs = ConvertPositionsToInt(crabStrings);
         int leastFuel = LeastFuelUsage(crabs, 0);
         int answer = 336120;
         string outcome = CheckAnswer(leastFuel, answer);
         System.Console.WriteLine($"Day 7-1: {leastFuel} {outcome}");
+        return leastFuel;
     }
-    public override void Part2(List<string> crabStrings){
+    public override Int64 Part2(string filepath){
+        string[] file = File.ReadAllText(filepath).Split(',');
+        List<string> crabStrings = new List<string>(file);
+
         List<int> crabs = ConvertPositionsToInt(crabStrings);
         int leastFuel = LeastFuelUsage(crabs, 1);
         int answer = 96864235;
         string outcome = CheckAnswer(leastFuel, answer);
         System.Console.WriteLine($"Day 7-2: {leastFuel} {outcome}");
+        return leastFuel;
     }
     private static List<int> ConvertPositionsToInt(List<string> crabStrings){
         List<int> crabs = new List<int>();

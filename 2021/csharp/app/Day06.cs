@@ -1,14 +1,9 @@
 namespace AdventOfCode;
-class Day06 : Day{
-    public override void Main(string filepath){
-        //Main is overriden today because this input file is divided by commas,
-        // meaning this Split() works better than the usual ReadAllLines()
+public class Day06 : Day{
+    public override Int64 Part1(string filepath){
         string[] file = File.ReadAllText(filepath).Split(',');
-        List<string> input = new List<string>(file);
-        Part1(input);
-        Part2(input);
-    }
-    public override void Part1(List<string> fishAges){
+        List<string>  fishAges = new List<string>(file);
+
         Int64[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 80; day++)
             {populationByAge = AddOneDay(populationByAge);}
@@ -17,8 +12,12 @@ class Day06 : Day{
         Int64 answer = 385391;
         string outcome = CheckAnswer(population, answer);
         System.Console.WriteLine($"Day 6-1: {population} {outcome}");
+        return population;
     }
-    public override void Part2(List<string> fishAges){
+    public override Int64 Part2(string filepath){
+        string[] file = File.ReadAllText(filepath).Split(',');
+        List<string>  fishAges = new List<string>(file);
+
         Int64[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 256; day++)
             {populationByAge = AddOneDay(populationByAge);}
@@ -27,6 +26,7 @@ class Day06 : Day{
         Int64 answer = 1728611055389;
         string outcome = CheckAnswer(population, answer);
         System.Console.WriteLine($"Day 6-2: {population} {outcome}");
+        return population;
     }
     private static Int64[] AddOneDay(Int64[] existingPopulation){
         Int64[] newPopulation = new Int64[9];

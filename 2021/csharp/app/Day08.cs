@@ -1,6 +1,9 @@
 namespace AdventOfCode;
-class Day08 : Day{
-    public override void Part1(List<string> input){
+public class Day08 : Day{
+    public override Int64 Part1(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> input = new List<string>(file);
+
         int uniqueSegments = 0;
 
         foreach (string line in input){
@@ -13,8 +16,12 @@ class Day08 : Day{
         int answer = 321;
         string outcome = CheckAnswer(uniqueSegments, answer);
         System.Console.WriteLine($"Day 8-1: {uniqueSegments} {outcome}");
+        return uniqueSegments;
     }
-    public override void Part2(List<string> input){
+    public override Int64 Part2(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> input = new List<string>(file);
+        
         int displayTotal = 0;
         foreach (string line in input){
             var (display, displayDigits) = DecipherOutputs(line);
@@ -23,6 +30,7 @@ class Day08 : Day{
         int answer = 1028926;
         string outcome = CheckAnswer(displayTotal, answer);
         System.Console.WriteLine($"Day 8-2: {displayTotal} {outcome}");
+        return displayTotal;
     }
     static (int display, List<int> displayDigits) DecipherOutputs(string line){
         var (patterns, outputs) = SplitLine(line);

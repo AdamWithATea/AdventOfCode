@@ -1,11 +1,8 @@
 namespace AdventOfCode;
-abstract class Day{
+public abstract class Day{
     public virtual void Main(string filepath){
-        ///Main can be overridden if ReadAllLines isn't appropriate, e.g comma-delimited inputs
-        string[] file = File.ReadAllLines(filepath);
-        List<string> input = new List<string>(file);
-        Part1(input);
-        Part2(input);
+        Part1(filepath);
+        Part2(filepath);
     }
     public string CheckAnswer(Int64 result, Int64 expected){
         //Can be used after a puzzle is solved and the correct answer is known in order to
@@ -23,6 +20,6 @@ abstract class Day{
         return outcome;
     }
     //Enforce existence of Part1() and Part2() in child classes so Main() can always call it:
-    public abstract void Part1(List<string> input); 
-    public abstract void Part2(List<string> input);
+    public abstract Int64 Part1(string filepath); 
+    public abstract Int64 Part2(string filepath);
 }
