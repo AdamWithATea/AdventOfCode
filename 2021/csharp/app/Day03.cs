@@ -1,6 +1,9 @@
 namespace AdventOfCode;
-class Day03 : Day{
-    public override void Part1(List<string> diagnostics){
+public class Day03 : Day{
+    public override Int64 Part1(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> diagnostics = new List<string>(file);
+
         string gamma = "", epsilon = "";
         int position = 0;
         //Fill strings with the right number of characters, to be replaced as the bits are calculated below
@@ -18,8 +21,12 @@ class Day03 : Day{
         int answer = 3912944;
         string outcome = CheckAnswer(powerConsumption, answer);
         System.Console.WriteLine($"Day 3-1: {powerConsumption} {outcome}");
+        return powerConsumption;
     }
-    public override void Part2(List<string> diagnostics){
+    public override Int64 Part2(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> diagnostics = new List<string>(file);
+
         int o2 = CalculateLifeSupport(diagnostics, "o2");
         int co2 = CalculateLifeSupport(diagnostics, "co2");
 
@@ -27,6 +34,7 @@ class Day03 : Day{
         int answer = 4996233;
         string outcome = CheckAnswer(lifeSupport, answer);
         System.Console.WriteLine($"Day 3-2: {lifeSupport} {outcome}");
+        return lifeSupport;
     }
     static int CalculateLifeSupport(List<string> diagnostics, string task){
         string comparisonBit;

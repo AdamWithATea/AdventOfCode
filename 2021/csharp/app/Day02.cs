@@ -1,16 +1,24 @@
 namespace AdventOfCode;
-class Day02 : Day{
-    public override void Part1(List<string> directions){
+public class Day02 : Day{
+    public override Int64 Part1(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> directions = new List<string>(file);
+
         int destination = PlotCourse(directions);
         int answer = 1989014;
         string outcome = CheckAnswer(destination, answer);
         System.Console.WriteLine($"Day 2-1: {destination} {outcome}");
+        return destination;
     }
-    public override void Part2(List<string> directions){
+    public override Int64 Part2(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> directions = new List<string>(file);
+
         int destination = PlotCourse(directions, 0);
         int answer = 2006917119;
         string outcome = CheckAnswer(destination, answer);
         System.Console.WriteLine($"Day 2-2: {destination} {outcome}");
+        return destination;
     }
     static int PlotCourse(List<string> directions){
         //For part 1, where the course just follows the directions

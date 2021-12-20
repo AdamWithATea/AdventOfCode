@@ -1,6 +1,8 @@
 namespace AdventOfCode;
-class Day05 : Day{
-    public override void Part1(List<string> ventLocations){
+public class Day05 : Day{
+    public override Int64 Part1(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> ventLocations = new List<string>(file);        
         int[,] map = CreateMap(ventLocations);
 
         foreach (string ventLocation in ventLocations)
@@ -11,8 +13,11 @@ class Day05 : Day{
         int answer = 6841;
         string outcome = CheckAnswer(overlaps, answer);
         System.Console.WriteLine($"Day 5-1: {overlaps} {outcome}");
+        return overlaps;
     }
-    public override void Part2(List<string> ventLocations){
+    public override Int64 Part2(string filepath){
+        string[] file = File.ReadAllLines(filepath);
+        List<string> ventLocations = new List<string>(file);
         int[,] map = CreateMap(ventLocations);
 
         foreach (string ventLocation in ventLocations)
@@ -23,6 +28,7 @@ class Day05 : Day{
         int answer = 19258;
         string outcome = CheckAnswer(overlaps, answer);
         System.Console.WriteLine($"Day 5-2: {overlaps} {outcome}");
+        return overlaps;
     }
     static int[,] CreateMap(List<string> ventLocations){
         List<int> xValues = new List<int>(), yValues = new List<int>();
@@ -99,7 +105,6 @@ class Day05 : Day{
         }
         return overlaps;
     }
-
     static void PrintMap(int[,] map){
         //Print current map in the style the website uses for testing purposes
         for (int x = 0; x < map.GetLength(0); x++){

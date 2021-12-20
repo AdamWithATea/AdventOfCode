@@ -1,15 +1,7 @@
 namespace AdventOfCode;
-class Day04 : Day{
-    public override void Main(string filepath){
-        //Main is overriden today because this input file is divided by double line
-        // breaks, meaning this Split() works better than the usual ReadAllLines()
-        string[] file = File.ReadAllText(filepath).Split(Environment.NewLine + Environment.NewLine);
-        List<string> input = new List<string>(file);
-        Part1(input);
-        Part2(input);
-    }
-    public override void Part1(List<string> gameDetails){
-        var (numbersDrawn, bingoCards, scoreboard) = SetupGame(gameDetails);
+public class Day04 : Day{
+    public override Int64 Part1(string filepath){
+        var (numbersDrawn, bingoCards, scoreboard) = SetupGame(filepath);
         scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);
 
         int lowestTurn = numbersDrawn.Count(), winningScore = 0;
@@ -22,9 +14,10 @@ class Day04 : Day{
         int answer = 33462;
         string outcome = CheckAnswer(winningScore, answer);
         System.Console.WriteLine($"Day 4-1: {winningScore} {outcome}");
+        return winningScore;
     }
-    public override void Part2(List<string> gameDetails){
-        var (numbersDrawn, bingoCards, scoreboard) = SetupGame(gameDetails);
+    public override Int64 Part2(string filepath){
+        var (numbersDrawn, bingoCards, scoreboard) = SetupGame(filepath);
         scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);
 
         int highestTurn = 0, losingScore = 0;
@@ -37,6 +30,7 @@ class Day04 : Day{
         int answer = 30070;
         string outcome = CheckAnswer(losingScore, answer);
         System.Console.WriteLine($"Day 4-2: {losingScore} {outcome}");
+        return losingScore;
     }
     static int[,] PlayBingo(List<int> numbersDrawn, List<int[,]> bingoCards, int[,] scoreboard){
         int cardNumber = 1;
@@ -51,7 +45,9 @@ class Day04 : Day{
         }
         return scoreboard;
     }
-    static (List<int> numbersDrawn, List<int[,]> bingoCards, int[,] scoreboard) SetupGame(List<string> gameDetails){
+    static (List<int> numbersDrawn, List<int[,]> bingoCards, int[,] scoreboard) SetupGame(string filepath){
+        string[] file = File.ReadAllText(filepath).Split(Environment.NewLine + Environment.NewLine);
+        List<string> gameDetails = new List<string>(file);
         //Turn the first line of the input into a list of all the numbers to be drawn and convert them to int
         List<string> numbersDrawnStr = gameDetails[0].Split(',').ToList();
         List<int> numbersDrawn = new List<int>();
