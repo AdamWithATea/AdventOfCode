@@ -1,7 +1,13 @@
 ﻿using AdventOfCode;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using IHost host = Host.CreateDefaultBuilder().Build();
 
-int today = 9;
-Boolean onlyRunToday = true, useExampleFiles = true;
+IConfiguration settings = host.Services.GetRequiredService<IConfiguration>();
+
+int today = settings.GetValue<int>("Today");
+bool runAllDays = settings.GetValue<bool>("RunAllDays"), useExampleFiles = settings.GetValue<bool>("UseExampleFiles");
 var days = new List<Day>{
     new Day01(),
     new Day02(),
@@ -15,6 +21,6 @@ var days = new List<Day>{
     };
 
 for (int day = 1; day <= today; day++){
-    if (onlyRunToday == true) {day = today;}
+    if (runAllDays == false) {day = today;}
     days[day-1].Main(day, useExampleFiles);
     }

@@ -81,7 +81,7 @@ public class Day04 : Day{
     static (int cardScore, int winningTurn) CalculateCardScore(List<int> numbersDrawn, int[,] bingoCard){
         int turnNumber = 1, markedNumbersSum = 0, allNumbersSum = 0, lastNumberDrawn = 0;
         int[] rowTallies = new int[5], columnTallies = new int[5];
-        Boolean hasWon;
+        bool hasWon;
         foreach (int i in bingoCard) {allNumbersSum += i;}
 
         foreach (int numberDrawn in numbersDrawn){

@@ -13,7 +13,7 @@ public class Day09 : Day{
         //     for (int y = 0; y < map.GetLength(1); y++){
         //         List<int> coordinates = new List<int>();
         //         coordinates.Add(x); coordinates.Add(y);
-        //         Boolean isLowPoint = IsLowPoint(coordinates, map);
+        //         bool isLowPoint = IsLowPoint(coordinates, map);
         //         if (isLowPoint == true) {totalRisk += map[x,y]+1;}                    
         //     }
         // }
@@ -39,7 +39,7 @@ public class Day09 : Day{
         }
         return map;
     }
-    static Boolean IsLowPoint(List<int> coordinates, int[,] map){
+    static bool IsLowPoint(List<int> coordinates, int[,] map){
         List<List<int>> adjacentLocations = GetAdjacentLocations(coordinates);
         int lowestAdjacentValue = 10;
 
@@ -49,7 +49,7 @@ public class Day09 : Day{
             System.Console.Write($"{x},{y}={map[x,y]}; ");
         } System.Console.WriteLine();
 
-        Boolean isLowPoint = false;
+        bool isLowPoint = false;
         return isLowPoint;
     }
     static List<List<int>> GetAdjacentLocations(List<int> coordinates){
