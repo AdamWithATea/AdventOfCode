@@ -8,11 +8,9 @@ public class Day05 : Day{
         foreach (string ventLocation in ventLocations)
             {UpdateMap(map, ventLocation, false);}
         //PrintMap(map);
-
         int overlaps = CountOverlaps(map);
-        int answer = 6841;
-        string outcome = CheckAnswer(overlaps, answer);
-        System.Console.WriteLine($"Day 5-1: {overlaps} {outcome}");
+
+        System.Console.WriteLine($"Day 5-1: {overlaps}");
         return overlaps;
     }
     public override Int64 Part2(string filepath){
@@ -23,11 +21,9 @@ public class Day05 : Day{
         foreach (string ventLocation in ventLocations)
             {UpdateMap(map, ventLocation, true);}
         //PrintMap(map);
-
         int overlaps = CountOverlaps(map);
-        int answer = 19258;
-        string outcome = CheckAnswer(overlaps, answer);
-        System.Console.WriteLine($"Day 5-2: {overlaps} {outcome}");
+        
+        System.Console.WriteLine($"Day 5-2: {overlaps}");
         return overlaps;
     }
     static int[,] CreateMap(List<string> ventLocations){

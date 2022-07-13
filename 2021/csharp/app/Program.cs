@@ -1,7 +1,7 @@
 ﻿using AdventOfCode;
 
 int latestDay = 9;
-Boolean onlyRunLatestDay = false, exampleForLatestDay = true;
+Boolean onlyRunLatestDay = true, exampleForLatestDay = true;
 var days = new List<Day>{
     new Day01(),
     new Day02(),
@@ -14,13 +14,10 @@ var days = new List<Day>{
     new Day09()
     };
 
-string inputFolder = "inputs";
-string fileName = "";
+
 for (int day = 1; day <= latestDay; day++){
     if (onlyRunLatestDay == true) {day = latestDay;}
-    if (exampleForLatestDay == true && day == latestDay) {inputFolder = "examples";}
-    if (day < 10) {fileName = $"day0{day}";}
-    else {fileName = $"day{day}";}
-    string filepath = $"../{inputFolder}/{fileName}.txt";
-    days[day-1].Main(filepath);
+    if (exampleForLatestDay == true && day == latestDay)
+        { days[day-1].Main(day, exampleForLatestDay); }
+    else { days[day-1].Main(day, false); }
     }

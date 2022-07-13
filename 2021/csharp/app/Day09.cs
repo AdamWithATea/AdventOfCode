@@ -17,6 +17,7 @@ public class Day09 : Day{
         //         if (isLowPoint == true) {totalRisk += map[x,y]+1;}                    
         //     }
         // }
+        
         System.Console.WriteLine($"Day 9-1: {totalRisk}");
         return totalRisk;
     }
