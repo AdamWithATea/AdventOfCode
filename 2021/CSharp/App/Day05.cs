@@ -49,7 +49,7 @@ public class Day05 : Day{
         }
         return map;
     }
-    static int[,] UpdateMap(int[,] map, string ventLocation, Boolean includeDiagonals){
+    static int[,] UpdateMap(int[,] map, string ventLocation, bool includeDiagonals){
         List<List<int>> coordinates = ConvertToCoords(ventLocation);
         int[] start = new int[2], current = new int[2], end = new int[2];
         start[0] = coordinates[0][0]; start[1] = coordinates[0][1];
