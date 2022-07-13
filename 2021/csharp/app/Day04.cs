@@ -2,34 +2,32 @@ namespace AdventOfCode;
 public class Day04 : Day{
     public override Int64 Part1(string filepath){
         var (numbersDrawn, bingoCards, scoreboard) = SetupGame(filepath);
-        scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);
-
+        scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);        
         int lowestTurn = numbersDrawn.Count(), winningScore = 0;
+
         for (int index = 0; index < bingoCards.Count(); index++){
             if (scoreboard[2, index] < lowestTurn){
                 winningScore = scoreboard[1, index];
                 lowestTurn = scoreboard[2, index];
             }
         }
-        int answer = 33462;
-        string outcome = CheckAnswer(winningScore, answer);
-        System.Console.WriteLine($"Day 4-1: {winningScore} {outcome}");
+
+        System.Console.WriteLine($"Day 4-1: {winningScore}");
         return winningScore;
     }
     public override Int64 Part2(string filepath){
         var (numbersDrawn, bingoCards, scoreboard) = SetupGame(filepath);
         scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);
-
         int highestTurn = 0, losingScore = 0;
+        
         for (int index = 0; index < bingoCards.Count(); index++){
             if (scoreboard[2, index] > highestTurn){
                 losingScore = scoreboard[1, index];
                 highestTurn = scoreboard[2, index];
             }
         }
-        int answer = 30070;
-        string outcome = CheckAnswer(losingScore, answer);
-        System.Console.WriteLine($"Day 4-2: {losingScore} {outcome}");
+
+        System.Console.WriteLine($"Day 4-2: {losingScore}");
         return losingScore;
     }
     static int[,] PlayBingo(List<int> numbersDrawn, List<int[,]> bingoCards, int[,] scoreboard){

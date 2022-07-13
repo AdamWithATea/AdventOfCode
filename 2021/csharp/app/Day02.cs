@@ -3,21 +3,17 @@ public class Day02 : Day{
     public override Int64 Part1(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> directions = new List<string>(file);
-
         int destination = PlotCourse(directions);
-        int answer = 1989014;
-        string outcome = CheckAnswer(destination, answer);
-        System.Console.WriteLine($"Day 2-1: {destination} {outcome}");
+        
+        System.Console.WriteLine($"Day 2-1: {destination}");
         return destination;
     }
     public override Int64 Part2(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> directions = new List<string>(file);
-
         int destination = PlotCourse(directions, 0);
-        int answer = 2006917119;
-        string outcome = CheckAnswer(destination, answer);
-        System.Console.WriteLine($"Day 2-2: {destination} {outcome}");
+
+        System.Console.WriteLine($"Day 2-2: {destination}");
         return destination;
     }
     static int PlotCourse(List<string> directions){

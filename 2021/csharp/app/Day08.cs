@@ -3,7 +3,6 @@ public class Day08 : Day{
     public override Int64 Part1(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> input = new List<string>(file);
-
         int uniqueSegments = 0;
 
         foreach (string line in input){
@@ -13,23 +12,21 @@ public class Day08 : Day{
                     {uniqueSegments++;}
             }
         }
-        int answer = 321;
-        string outcome = CheckAnswer(uniqueSegments, answer);
-        System.Console.WriteLine($"Day 8-1: {uniqueSegments} {outcome}");
+        
+        System.Console.WriteLine($"Day 8-1: {uniqueSegments}");
         return uniqueSegments;
     }
     public override Int64 Part2(string filepath){
         string[] file = File.ReadAllLines(filepath);
-        List<string> input = new List<string>(file);
-        
+        List<string> input = new List<string>(file);        
         int displayTotal = 0;
+
         foreach (string line in input){
             var (display, displayDigits) = DecipherOutputs(line);
             displayTotal += display;
         }
-        int answer = 1028926;
-        string outcome = CheckAnswer(displayTotal, answer);
-        System.Console.WriteLine($"Day 8-2: {displayTotal} {outcome}");
+        
+        System.Console.WriteLine($"Day 8-2: {displayTotal}");
         return displayTotal;
     }
     static (int display, List<int> displayDigits) DecipherOutputs(string line){

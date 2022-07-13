@@ -3,21 +3,17 @@ public class Day01 : Day{
     public override Int64 Part1(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> readings = new List<string>(file);
-
         int increases = CountDepthIncreases(readings, 1);
-        int answer = 1791;
-        string outcome = CheckAnswer(increases, answer);
-        System.Console.WriteLine($"Day 1-1: {increases} {outcome}");
+
+        System.Console.WriteLine($"Day 1-1: {increases}");
         return increases;
     }
     public override Int64 Part2(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> readings = new List<string>(file);
-        
         int increases = CountDepthIncreases(readings, 3);
-        int answer = 1822;
-        string outcome = CheckAnswer(increases, answer);
-        System.Console.WriteLine($"Day 1-2: {increases} {outcome}");
+        
+        System.Console.WriteLine($"Day 1-2: {increases}");
         return increases;
     }
     static int CountDepthIncreases(List<string> readings, int groupSize){

@@ -1,23 +1,20 @@
 namespace AdventOfCode;
 public abstract class Day{
-    public virtual void Main(string filepath){
-        Part1(filepath);
-        Part2(filepath);
+    public virtual void Main(int day, Boolean useExampleFile){
+        Part1(BuildFilePath(day, useExampleFile));
+        Part2(BuildFilePath(day, useExampleFile));
     }
-    public string CheckAnswer(Int64 result, Int64 expected){
-        //Can be used after a puzzle is solved and the correct answer is known in order to
-        // easily confirm any future changes haven't broken anything
-        string outcome;
-        if (result == expected)
-        { outcome = "PASS"; }
-        else { outcome = $"FAIL (Expected {expected})"; }
-        return outcome;
-    }
-    public string CheckAnswer(int result, int expected){
-        //Same as the Int64 version above, but for 32-bit ints so CheckAnswer can be called
-        // with either type and still work, with no conversion required in the calling method
-        string outcome = CheckAnswer(Convert.ToInt64(result), Convert.ToInt64(expected));
-        return outcome;
+    public string BuildFilePath(int day, Boolean useExampleFile){
+        string inputFolder = "inputs", fileName = "";
+        if (useExampleFile == true) { inputFolder = "examples"; }
+        if (day < 10) { fileName = $"day0{day}"; }
+        else { fileName = $"day{day}"; }
+
+        //Windows:
+        string filepath = $"C:/Users/Public/Repos/adventofcode/2021/{inputFolder}/{fileName}.txt";
+        //Linux:
+        //string filepath = $"/home/adam/Documents/Repos/adventofcode/2021/{inputFolder}/{fileName}.txt";
+        return filepath;
     }
     //Enforce existence of Part1() and Part2() in child classes so Main() can always call it:
     public abstract Int64 Part1(string filepath); 

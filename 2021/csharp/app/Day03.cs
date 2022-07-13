@@ -3,7 +3,6 @@ public class Day03 : Day{
     public override Int64 Part1(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> diagnostics = new List<string>(file);
-
         string gamma = "", epsilon = "";
         int position = 0;
         //Fill strings with the right number of characters, to be replaced as the bits are calculated below
@@ -16,24 +15,19 @@ public class Day03 : Day{
             epsilon = epsilon.Substring(0, position) + leastCommonBit + epsilon.Substring(position + 1);
             position++;
         }
-
         int powerConsumption = Convert.ToInt32(gamma, 2) * Convert.ToInt32(epsilon, 2);
-        int answer = 3912944;
-        string outcome = CheckAnswer(powerConsumption, answer);
-        System.Console.WriteLine($"Day 3-1: {powerConsumption} {outcome}");
+        
+        System.Console.WriteLine($"Day 3-1: {powerConsumption}");
         return powerConsumption;
     }
     public override Int64 Part2(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> diagnostics = new List<string>(file);
-
         int o2 = CalculateLifeSupport(diagnostics, "o2");
         int co2 = CalculateLifeSupport(diagnostics, "co2");
-
         int lifeSupport = o2 * co2;
-        int answer = 4996233;
-        string outcome = CheckAnswer(lifeSupport, answer);
-        System.Console.WriteLine($"Day 3-2: {lifeSupport} {outcome}");
+        
+        System.Console.WriteLine($"Day 3-2: {lifeSupport}");
         return lifeSupport;
     }
     static int CalculateLifeSupport(List<string> diagnostics, string task){

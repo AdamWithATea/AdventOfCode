@@ -3,29 +3,23 @@ public class Day06 : Day{
     public override Int64 Part1(string filepath){
         string[] file = File.ReadAllText(filepath).Split(',');
         List<string>  fishAges = new List<string>(file);
-
         Int64[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 80; day++)
             {populationByAge = AddOneDay(populationByAge);}
-
         Int64 population = populationByAge.Sum();
-        Int64 answer = 385391;
-        string outcome = CheckAnswer(population, answer);
-        System.Console.WriteLine($"Day 6-1: {population} {outcome}");
+        
+        System.Console.WriteLine($"Day 6-1: {population}");
         return population;
     }
     public override Int64 Part2(string filepath){
         string[] file = File.ReadAllText(filepath).Split(',');
         List<string>  fishAges = new List<string>(file);
-
         Int64[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 256; day++)
             {populationByAge = AddOneDay(populationByAge);}
-
         Int64 population = populationByAge.Sum();
-        Int64 answer = 1728611055389;
-        string outcome = CheckAnswer(population, answer);
-        System.Console.WriteLine($"Day 6-2: {population} {outcome}");
+        
+        System.Console.WriteLine($"Day 6-2: {population}");
         return population;
     }
     private static Int64[] AddOneDay(Int64[] existingPopulation){
