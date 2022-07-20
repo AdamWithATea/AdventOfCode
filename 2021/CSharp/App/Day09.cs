@@ -41,7 +41,7 @@ public class Day09 : Day{
     }
     static bool IsLowPoint(List<int> coordinates, int[,] map){
         List<List<int>> adjacentLocations = GetAdjacentLocations(coordinates);
-        int lowestAdjacentValue = 10;
+        // int lowestAdjacentValue = 10;
 
         System.Console.WriteLine(coordinates[0] + "," + coordinates[1]);
         foreach (List<int> location in adjacentLocations){

@@ -12,14 +12,19 @@ public abstract class Day{
     public string BuildFilePath(int day, bool useExampleFile){
         using IHost host = Host.CreateDefaultBuilder().Build();
         IConfiguration settings = host.Services.GetRequiredService<IConfiguration>();
-
-        string rootPath = settings.GetValue<string>("Environment:Root");
+        
+        string rootPath = settings.GetValue<string>("Environment:Root:Linux");
+        if (settings.GetValue<string>("Environment:Platform") == "Windows"){
+            // Get the Windows Root from appsettings.json and translate any environment variables it contains, e.g. %UserProfile%
+            rootPath = Environment.ExpandEnvironmentVariables(settings.GetValue<string>("Environment:Root:Windows"));
+        }
+        
         string exampleFolder = "", fileName = "";
         if (useExampleFile == true) { exampleFolder = "Examples/"; }
         if (day < 10) { fileName = $"Day0{day}"; }
         else { fileName = $"Day{day}"; }
 
-        string filepath = $"{rootPath}/2021/InputFiles/{exampleFolder}{fileName}.txt";
+        string filepath = $"{rootPath}InputFiles/{exampleFolder}{fileName}.txt";
         return filepath;
     }
     //Enforce existence of Part1() and Part2() in child classes so Main() can always call them:
