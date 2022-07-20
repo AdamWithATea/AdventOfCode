@@ -4,6 +4,8 @@ day = '0'
 example = False
 #Latest day that a module exists for
 latestDay = 4
+#Local path for the AdventOfCode repo directory
+rootDir = "/home/deck/Code/AdventOfCode/"
 
 import importlib
 
@@ -17,8 +19,8 @@ def TwoDigitDates(day):
 def BuildFilePath(example, day):
     #Builds the filepath based on the day being requested and whether the example or input file is required
     if example == True:
-        filepath = '/home/adam/Documents/Repos/adventofcode/2021/examples/day' + day + '.txt'
-    else: filepath = '/home/adam/Documents/Repos/adventofcode/2021/inputs/day' + day + '.txt'
+        filepath = rootDir + '2021/InputFiles/Examples/Day' + day + '.txt'
+    else: filepath = rootDir + '2021/InputFiles/Day' + day + '.txt'
     return(filepath)
 
 def GetAllDays(latestDay):
@@ -31,7 +33,7 @@ def GetAllDays(latestDay):
 def GetOneDay(day):
     day = TwoDigitDates(day)
     filepath = BuildFilePath(example, day)
-    packageName = 'day' + day
+    packageName = 'Day' + day
     imported = importlib.import_module(packageName)
     imported.Run(filepath)
 
