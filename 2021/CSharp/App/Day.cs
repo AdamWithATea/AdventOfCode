@@ -13,18 +13,15 @@ public abstract class Day{
         using IHost host = Host.CreateDefaultBuilder().Build();
         IConfiguration settings = host.Services.GetRequiredService<IConfiguration>();
         
-        string rootPath = settings.GetValue<string>("Environment:Root:Linux");
-        if (settings.GetValue<string>("Environment:Platform") == "Windows"){
-            // Get the Windows Root from appsettings.json and translate any environment variables it contains, e.g. %UserProfile%
-            rootPath = Environment.ExpandEnvironmentVariables(settings.GetValue<string>("Environment:Root:Windows"));
-        }
+        // Get the current platform and relevant filepath from appsettings.json, translating any environment variables (e.g. %UserProfile%)
+        string rootPath = Environment.ExpandEnvironmentVariables(settings.GetValue<string>($"Environment:Root:{settings.GetValue<string>("Environment:Platform")}"));
         
-        string exampleFolder = "", fileName = "";
-        if (useExampleFile == true) { exampleFolder = "Examples/"; }
-        if (day < 10) { fileName = $"Day0{day}"; }
-        else { fileName = $"Day{day}"; }
+        string slash = (settings.GetValue<string>("Environment:Platform") == "Windows") ? "\\" : "/";
+        string exampleFolder = (useExampleFile == true) ? $"Examples{slash}" : "";
+        string fileName = day < 10 ? $"Day0{day}" : $"Day{day}";
 
-        string filepath = $"{rootPath}InputFiles/{exampleFolder}{fileName}.txt";
+        string filepath = $"{rootPath}InputFiles{slash}{exampleFolder}{fileName}.txt";
+        System.Console.WriteLine(filepath);
         return filepath;
     }
     //Enforce existence of Part1() and Part2() in child classes so Main() can always call them:
