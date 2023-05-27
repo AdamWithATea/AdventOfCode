@@ -37,8 +37,7 @@ public class Day08 : Day{
         foreach (string output in outputs){
             for (int index = 0; index < 10; index++){
                 int requiredIntersect = 0;
-                if (output.Length > cypher[index, 1].Length) {requiredIntersect = output.Length;}
-                else {requiredIntersect = cypher[index, 1].Length;}
+                requiredIntersect= (output.Length > cypher[index, 1].Length) ? output.Length : cypher[index, 1].Length;
                 if (output.Intersect(cypher[index, 1]).Count() == requiredIntersect) {displayDigits.Add(index);}
             }
         }
