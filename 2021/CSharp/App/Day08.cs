@@ -12,8 +12,6 @@ public class Day08 : Day{
                     {uniqueSegments++;}
             }
         }
-        
-        System.Console.WriteLine($"Day 8-1: {uniqueSegments}");
         return uniqueSegments;
     }
     public override Int64 Part2(string filepath){
@@ -25,8 +23,6 @@ public class Day08 : Day{
             var (display, displayDigits) = DecipherOutputs(line);
             displayTotal += display;
         }
-        
-        System.Console.WriteLine($"Day 8-2: {displayTotal}");
         return displayTotal;
     }
     static (int display, List<int> displayDigits) DecipherOutputs(string line){

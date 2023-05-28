@@ -7,8 +7,6 @@ public class Day06 : Day{
         for (int day = 1; day <= 80; day++)
             {populationByAge = AddOneDay(populationByAge);}
         Int64 population = populationByAge.Sum();
-        
-        System.Console.WriteLine($"Day 6-1: {population}");
         return population;
     }
     public override Int64 Part2(string filepath){
@@ -18,8 +16,6 @@ public class Day06 : Day{
         for (int day = 1; day <= 256; day++)
             {populationByAge = AddOneDay(populationByAge);}
         Int64 population = populationByAge.Sum();
-        
-        System.Console.WriteLine($"Day 6-2: {population}");
         return population;
     }
     private static Int64[] AddOneDay(Int64[] existingPopulation){

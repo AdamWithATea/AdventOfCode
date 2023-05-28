@@ -8,7 +8,7 @@ public class Day03 : Day{
         //Fill strings with the right number of characters, to be replaced as the bits are calculated below
         gamma = gamma.PadLeft(diagnostics[0].Length, '#');
         epsilon = epsilon.PadLeft(diagnostics[0].Length, '#');
-
+        
         while (position < diagnostics[0].Length){
             var (mostCommonBit, leastCommonBit) = BitFrequency(diagnostics, position);
             gamma = gamma.Substring(0, position) + mostCommonBit + gamma.Substring(position + 1);
@@ -16,8 +16,6 @@ public class Day03 : Day{
             position++;
         }
         int powerConsumption = Convert.ToInt32(gamma, 2) * Convert.ToInt32(epsilon, 2);
-        
-        System.Console.WriteLine($"Day 3-1: {powerConsumption}");
         return powerConsumption;
     }
     public override Int64 Part2(string filepath){
@@ -26,8 +24,6 @@ public class Day03 : Day{
         int o2 = CalculateLifeSupport(diagnostics, "o2");
         int co2 = CalculateLifeSupport(diagnostics, "co2");
         int lifeSupport = o2 * co2;
-        
-        System.Console.WriteLine($"Day 3-2: {lifeSupport}");
         return lifeSupport;
     }
     static int CalculateLifeSupport(List<string> diagnostics, string task){

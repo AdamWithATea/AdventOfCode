@@ -5,8 +5,6 @@ public class Day07 : Day{
         List<string> crabStrings = new List<string>(file);
         List<int> crabs = ConvertPositionsToInt(crabStrings);
         int leastFuel = LeastFuelUsage(crabs, 0);
-
-        System.Console.WriteLine($"Day 7-1: {leastFuel}");
         return leastFuel;
     }
     public override Int64 Part2(string filepath){
@@ -14,8 +12,6 @@ public class Day07 : Day{
         List<string> crabStrings = new List<string>(file);
         List<int> crabs = ConvertPositionsToInt(crabStrings);
         int leastFuel = LeastFuelUsage(crabs, 1);
-        
-        System.Console.WriteLine($"Day 7-2: {leastFuel}");
         return leastFuel;
     }
     private static List<int> ConvertPositionsToInt(List<string> crabStrings){
