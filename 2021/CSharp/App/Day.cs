@@ -13,7 +13,7 @@ public abstract class Day{
         using IHost host = Host.CreateDefaultBuilder().Build();
         IConfiguration settings = host.Services.GetRequiredService<IConfiguration>();
         
-        // Get the current platform and relevant filepath from appsettings.json, translating any environment variables (e.g. %UserProfile%)
+        // Get the current platform and relevant filepath from appsettings.json, translating any environment variables (e.g. %UserProfile% and %HOME%)
         string rootPath = Environment.ExpandEnvironmentVariables(settings.GetValue<string>($"Environment:Root:{settings.GetValue<string>("Environment:Platform")}"));
         
         string slash = (settings.GetValue<string>("Environment:Platform") == "Windows") ? "\\" : "/";
