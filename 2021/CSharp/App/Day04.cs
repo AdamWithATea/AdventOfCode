@@ -11,8 +11,6 @@ public class Day04 : Day{
                 lowestTurn = scoreboard[2, index];
             }
         }
-
-        System.Console.WriteLine($"Day 4-1: {winningScore}");
         return winningScore;
     }
     public override Int64 Part2(string filepath){
@@ -26,8 +24,6 @@ public class Day04 : Day{
                 highestTurn = scoreboard[2, index];
             }
         }
-
-        System.Console.WriteLine($"Day 4-2: {losingScore}");
         return losingScore;
     }
     static int[,] PlayBingo(List<int> numbersDrawn, List<int[,]> bingoCards, int[,] scoreboard){
@@ -72,7 +68,7 @@ public class Day04 : Day{
         for (int line = 0; line < cardLines.Count(); line++){
             string formattedLine = RemoveExtraSpaces(cardLines[line]);
             string[] lineValues = formattedLine.Split(" ");
-
+            
             for (int value = 0; value < lineValues.Count(); value++)
                 {bingoCard[value, line] = Convert.ToInt32(lineValues[value]);}
         }

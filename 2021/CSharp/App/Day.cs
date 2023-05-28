@@ -6,8 +6,11 @@ namespace AdventOfCode;
 
 public abstract class Day{
     public virtual void Main(int day, bool useExampleFile){
-        Part1(BuildFilePath(day, useExampleFile));
-        Part2(BuildFilePath(day, useExampleFile));
+        Int64 output1 = Part1(BuildFilePath(day, useExampleFile));
+        System.Console.WriteLine($"Day {day}-1: {output1}");
+        
+        Int64 output2 = Part2(BuildFilePath(day, useExampleFile));
+        System.Console.WriteLine($"Day {day}-2: {output2}");
     }
     public string BuildFilePath(int day, bool useExampleFile){
         using IHost host = Host.CreateDefaultBuilder().Build();
@@ -19,9 +22,8 @@ public abstract class Day{
         string slash = (settings.GetValue<string>("Environment:Platform") == "Windows") ? "\\" : "/";
         string exampleFolder = (useExampleFile == true) ? $"Examples{slash}" : "";
         string fileName = day < 10 ? $"Day0{day}" : $"Day{day}";
-
+        
         string filepath = $"{rootPath}InputFiles{slash}{exampleFolder}{fileName}.txt";
-        System.Console.WriteLine(filepath);
         return filepath;
     }
     //Enforce existence of Part1() and Part2() in child classes so Main() can always call them:

@@ -4,16 +4,12 @@ public class Day02 : Day{
         string[] file = File.ReadAllLines(filepath);
         List<string> directions = new List<string>(file);
         int destination = PlotCourse(directions);
-        
-        System.Console.WriteLine($"Day 2-1: {destination}");
         return destination;
     }
     public override Int64 Part2(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> directions = new List<string>(file);
         int destination = PlotCourse(directions, 0);
-
-        System.Console.WriteLine($"Day 2-2: {destination}");
         return destination;
     }
     static int PlotCourse(List<string> directions){

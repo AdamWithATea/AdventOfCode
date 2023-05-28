@@ -17,15 +17,11 @@ public class Day09 : Day{
         //         if (isLowPoint == true) {totalRisk += map[x,y]+1;}                    
         //     }
         // }
-        
-        System.Console.WriteLine($"Day 9-1: {totalRisk}");
         return totalRisk;
     }
     public override Int64 Part2(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> terrain = new List<string>(file);
-        
-        System.Console.WriteLine($"Day 9-2: WIP");
         return 0;
     }
     static int[,] MapTerrain(List<string> terrain){
