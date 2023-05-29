@@ -5,23 +5,16 @@ public class Day09 : Day{
         List<string> terrain = new List<string>(file);
 
         var map = MapTerrain(terrain);
-        PrintMap(map);
-
-        int totalRisk = 0;
-
-        // for (int x = 0; x < map.GetLength(0); x++){
-        //     for (int y = 0; y < map.GetLength(1); y++){
-        //         List<int> coordinates = new List<int>();
-        //         coordinates.Add(x); coordinates.Add(y);
-        //         bool isLowPoint = IsLowPoint(coordinates, map);
-        //         if (isLowPoint == true) {totalRisk += map[x,y]+1;}                    
-        //     }
-        // }
+        List<List<int>> lowPoints = LowPoints(map);
+        int totalRisk = CalculateTotalRisk(lowPoints);
         return totalRisk;
     }
     public override Int64 Part2(string filepath){
         string[] file = File.ReadAllLines(filepath);
         List<string> terrain = new List<string>(file);
+
+        var map = MapTerrain(terrain);
+        List<List<int>> lowPoints = LowPoints(map);
         return 0;
     }
     static int[,] MapTerrain(List<string> terrain){
@@ -35,37 +28,74 @@ public class Day09 : Day{
         }
         return map;
     }
-    static bool IsLowPoint(List<int> coordinates, int[,] map){
-        List<List<int>> adjacentLocations = GetAdjacentLocations(coordinates);
-        // int lowestAdjacentValue = 10;
+    static List<List<int>> LowPoints(int[,] map){
+        List<List<int>> lowPoints = new List<List<int>>();
 
-        System.Console.WriteLine(coordinates[0] + "," + coordinates[1]);
-        foreach (List<int> location in adjacentLocations){
-            int x = location[0], y = location[1];
-            System.Console.Write($"{x},{y}={map[x,y]}; ");
-        } System.Console.WriteLine();
+        for (int y = 0; y < map.GetLength(0); y++){
+            for (int x = 0; x < map.GetLength(1); x++){
+                List<int> adjacentHeights = new List<int>();
+                if (y > 0) { adjacentHeights.Add(map[y-1,x]); }
+                if (y < map.GetLength(0)-1) { adjacentHeights.Add(map[y+1,x]); }
+                if (x > 0) { adjacentHeights.Add(map[y,x-1]); }
+                if (x < map.GetLength(1)-1) { adjacentHeights.Add(map[y,x+1]); }
 
-        bool isLowPoint = false;
-        return isLowPoint;
+                bool isLowPoint = true;
+                foreach (int height in adjacentHeights){
+                    if (height <= map[y,x]) { isLowPoint = false; }
+                }
+                if (isLowPoint){
+                    List<int> locationDetails = new List<int>{y,x,map[y,x]};
+                    lowPoints.Add(locationDetails);
+                }
+                
+            }
+        }
+        return lowPoints;
     }
-    static List<List<int>> GetAdjacentLocations(List<int> coordinates){
-        int x = coordinates[0], y = coordinates[1];
-        List<List<int>> adjacentLocations = new List<List<int>>();
+    static int CalculateRiskOriginal(int[,] map){
+        int totalRisk = 0;
+        
+        for (int y = 0; y < map.GetLength(0); y++){
+            for (int x = 0; x < map.GetLength(1); x++){
+                List<int> adjacentHeights = new List<int>();
+                if (y > 0) { adjacentHeights.Add(map[y-1,x]); }
+                if (y < map.GetLength(0)-1) { adjacentHeights.Add(map[y+1,x]); }
+                if (x > 0) { adjacentHeights.Add(map[y,x-1]); }
+                if (x < map.GetLength(1)-1) { adjacentHeights.Add(map[y,x+1]); }
 
-        //Above:
-
-        //To check if index is out of bounds of the array (needs editing):
-        // if (tileX < arr.GetLength(0) && tileY < arr.GetLength(1))
-        // { do stuff }        
-
-        return adjacentLocations;        
+                bool isLowPoint = true;
+                foreach (int height in adjacentHeights){
+                    if (height <= map[y,x]) { isLowPoint = false; }
+                }
+                if (isLowPoint){
+                    int riskLevel = map[y,x] + 1;
+                    totalRisk += riskLevel;
+                }
+            }
+        }
+        return totalRisk;
+    }
+    static int CalculateTotalRisk(List<List<int>> lowPoints){
+        int totalRisk = 0;
+        foreach (List<int> location in lowPoints){
+            int riskLevel = location[2] + 1;
+            totalRisk += riskLevel;
+        }
+        return totalRisk;
     }
     static void PrintMap(int[,] map){
         //Print current map for testing purposes
         for (int y = 0; y < map.GetLength(0); y++){
             for (int x = 0; x < map.GetLength(1); x++){
-                //System.Console.Write(map[x, y]);
-                System.Console.Write(y + "," + x + " ");
+                System.Console.Write(map[y, x]);
+
+                //Print array index of each value instead:
+                //System.Console.Write(y + "," + x + " ");
+                //If each index/co-ordinate is formatted y,x the array looks like this:
+                // 0,0 0,1 0,2 0,3
+                // 1,0 1,1 1,2 1,3
+                // 2,0 2,1 2,2 2,3
+                // 3,0 3,1 3,2 3,3
             }
             System.Console.WriteLine();
         }

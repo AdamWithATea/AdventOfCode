@@ -67,4 +67,10 @@ public class Tests{
         Assert.Equal(321, day08.Part1(day08.BuildFilePath(08, false)));
         Assert.Equal(1028926, day08.Part2(day08.BuildFilePath(08, false)));
     }
+    [Fact]
+    public void Day09Test(){
+        Day09 day09 = new Day09();
+        Assert.Equal(15, day09.Part1(day09.BuildFilePath(09, true)));
+        Assert.Equal(522, day09.Part1(day09.BuildFilePath(09, false)));
+    }
 }
