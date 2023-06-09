@@ -1,33 +1,50 @@
+using System;
+
 namespace AdventOfCode;
 public class Day07 : Day{
     public override Int64 Part1(string filepath){
         List<int> crabs = ConvertValuesToIntList(filepath, ",");
-        int leastFuel = LeastFuelUsage(crabs, 0);
-        return leastFuel;
+        return MedianFuelUsage(crabs);
     }
     public override Int64 Part2(string filepath){
         List<int> crabs = ConvertValuesToIntList(filepath, ",");
-        int leastFuel = LeastFuelUsage(crabs, 1);
-        return leastFuel;
+        return LeastFuelUsage(crabs, 1);
+    }
+    private static int MedianFuelUsage(List<int> crabs){
+        int fuelUsage = 0, medianPosition = 0;
+        crabs.Sort();
+        if (crabs.Count % 2 == 0){ //If the list contains an even number of values
+            int valueBelowMiddle = crabs[(crabs.Count/2)-1];
+            int valueAboveMiddle = crabs[crabs.Count/2];
+            medianPosition = (valueBelowMiddle + valueAboveMiddle)/2;
+        }
+        else{ //If the list contains an odd number of values
+            medianPosition = crabs[((crabs.Count+1)/2)-1];
+        }
+        foreach (int crab in crabs){
+            int distanceMoved = medianPosition-crab;
+            distanceMoved = distanceMoved < 0 ? -(distanceMoved) : distanceMoved;
+            fuelUsage += distanceMoved;
+        }        
+        return fuelUsage;
     }
     private static int LeastFuelUsage(List<int> crabs, int costIncrement){
         List<int> fuelUsage = new();
-        crabs.Sort();
-        int highestCrab = crabs[crabs.Count - 1], lowestCrab = crabs[0];
-        for (int position = lowestCrab; position <= highestCrab; position++){
+        //Group all crabs in the same position together as their fuel usage will be the same
+        var crabGroups = crabs.GroupBy(i => i);
+        for (int position = crabs.Min(); position <= crabs.Max(); position++){
             int totalFuelUsed = 0;
-            foreach (int crab in crabs){
-                int distanceMoved = 0, fuelPerMove = 1;
-                if (crab > position) {distanceMoved += crab - position;}
-                else { distanceMoved += position - crab; }
+            foreach (var crabGroup in crabGroups){
+                int distanceMoved = 0, fuelPerMove = 1, crabsInGroup = crabGroup.Count();
+                if (crabGroup.Key > position) {distanceMoved += crabGroup.Key - position;}
+                else { distanceMoved += position - crabGroup.Key; }
                 for (int move = 1; move <= distanceMoved; move++){
-                    totalFuelUsed += fuelPerMove;
+                    totalFuelUsed += (fuelPerMove * crabsInGroup);
                     fuelPerMove += costIncrement;
                 }
             }
             fuelUsage.Add(totalFuelUsed);
         }
-        fuelUsage.Sort();
-        return fuelUsage[0];
+        return fuelUsage.Min();
     }
 }
