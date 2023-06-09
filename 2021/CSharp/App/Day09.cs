@@ -1,8 +1,7 @@
 namespace AdventOfCode;
 public class Day09 : Day{
     public override Int64 Part1(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> terrain = new List<string>(file);
+        List<string> terrain = ConvertLinesToStringList(filepath);
 
         var map = MapTerrain(terrain);
         List<List<int>> lowPoints = LowPoints(map);
@@ -10,8 +9,7 @@ public class Day09 : Day{
         return totalRisk;
     }
     public override Int64 Part2(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> terrain = new List<string>(file);
+        List<string> terrain = ConvertLinesToStringList(filepath);
 
         var map = MapTerrain(terrain);
         List<List<int>> lowPoints = LowPoints(map);
@@ -29,11 +27,11 @@ public class Day09 : Day{
         return map;
     }
     static List<List<int>> LowPoints(int[,] map){
-        List<List<int>> lowPoints = new List<List<int>>();
+        List<List<int>> lowPoints = new();
 
         for (int y = 0; y < map.GetLength(0); y++){
             for (int x = 0; x < map.GetLength(1); x++){
-                List<int> adjacentHeights = new List<int>();
+                List<int> adjacentHeights = new();
                 if (y > 0) { adjacentHeights.Add(map[y-1,x]); }
                 if (y < map.GetLength(0)-1) { adjacentHeights.Add(map[y+1,x]); }
                 if (x > 0) { adjacentHeights.Add(map[y,x-1]); }
@@ -44,36 +42,13 @@ public class Day09 : Day{
                     if (height <= map[y,x]) { isLowPoint = false; }
                 }
                 if (isLowPoint){
-                    List<int> locationDetails = new List<int>{y,x,map[y,x]};
+                    List<int> locationDetails = new() { y,x,map[y,x]};
                     lowPoints.Add(locationDetails);
                 }
                 
             }
         }
         return lowPoints;
-    }
-    static int CalculateRiskOriginal(int[,] map){
-        int totalRisk = 0;
-        
-        for (int y = 0; y < map.GetLength(0); y++){
-            for (int x = 0; x < map.GetLength(1); x++){
-                List<int> adjacentHeights = new List<int>();
-                if (y > 0) { adjacentHeights.Add(map[y-1,x]); }
-                if (y < map.GetLength(0)-1) { adjacentHeights.Add(map[y+1,x]); }
-                if (x > 0) { adjacentHeights.Add(map[y,x-1]); }
-                if (x < map.GetLength(1)-1) { adjacentHeights.Add(map[y,x+1]); }
-
-                bool isLowPoint = true;
-                foreach (int height in adjacentHeights){
-                    if (height <= map[y,x]) { isLowPoint = false; }
-                }
-                if (isLowPoint){
-                    int riskLevel = map[y,x] + 1;
-                    totalRisk += riskLevel;
-                }
-            }
-        }
-        return totalRisk;
     }
     static int CalculateTotalRisk(List<List<int>> lowPoints){
         int totalRisk = 0;

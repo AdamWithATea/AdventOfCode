@@ -1,26 +1,17 @@
 namespace AdventOfCode;
 public class Day07 : Day{
     public override Int64 Part1(string filepath){
-        string[] file = File.ReadAllText(filepath).Split(',');
-        List<string> crabStrings = new List<string>(file);
-        List<int> crabs = ConvertPositionsToInt(crabStrings);
+        List<int> crabs = ConvertValuesToIntList(filepath, ",");
         int leastFuel = LeastFuelUsage(crabs, 0);
         return leastFuel;
     }
     public override Int64 Part2(string filepath){
-        string[] file = File.ReadAllText(filepath).Split(',');
-        List<string> crabStrings = new List<string>(file);
-        List<int> crabs = ConvertPositionsToInt(crabStrings);
+        List<int> crabs = ConvertValuesToIntList(filepath, ",");
         int leastFuel = LeastFuelUsage(crabs, 1);
         return leastFuel;
     }
-    private static List<int> ConvertPositionsToInt(List<string> crabStrings){
-        List<int> crabs = new List<int>();
-        foreach (string crab in crabStrings) {crabs.Add(Convert.ToInt32(crab));}
-        return crabs;
-    }
     private static int LeastFuelUsage(List<int> crabs, int costIncrement){
-        List<int> fuelUsage = new List<int>();
+        List<int> fuelUsage = new();
         crabs.Sort();
         int highestCrab = crabs[crabs.Count - 1], lowestCrab = crabs[0];
         for (int position = lowestCrab; position <= highestCrab; position++){

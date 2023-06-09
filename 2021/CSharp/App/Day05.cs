@@ -1,8 +1,7 @@
 namespace AdventOfCode;
 public class Day05 : Day{
     public override Int64 Part1(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> ventLocations = new List<string>(file);        
+        List<string> ventLocations = ConvertLinesToStringList(filepath);
         int[,] map = CreateMap(ventLocations);
 
         foreach (string ventLocation in ventLocations)
@@ -12,8 +11,7 @@ public class Day05 : Day{
         return overlaps;
     }
     public override Int64 Part2(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> ventLocations = new List<string>(file);
+        List<string> ventLocations = ConvertLinesToStringList(filepath);
         int[,] map = CreateMap(ventLocations);
 
         foreach (string ventLocation in ventLocations)

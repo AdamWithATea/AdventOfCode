@@ -1,14 +1,12 @@
 namespace AdventOfCode;
 public class Day01 : Day{
     public override Int64 Part1(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> readings = new List<string>(file);
+        List<string> readings = ConvertLinesToStringList(filepath);
         int increases = CountDepthIncreases(readings, 1);
         return increases;
     }
     public override Int64 Part2(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> readings = new List<string>(file);
+        List<string> readings = ConvertLinesToStringList(filepath);
         int increases = CountDepthIncreases(readings, 3);
         return increases;
     }

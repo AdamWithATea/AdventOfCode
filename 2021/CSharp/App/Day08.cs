@@ -1,8 +1,7 @@
 namespace AdventOfCode;
 public class Day08 : Day{
     public override Int64 Part1(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> input = new List<string>(file);
+        List<string> input = ConvertLinesToStringList(filepath);
         int uniqueSegments = 0;
 
         foreach (string line in input){
@@ -15,8 +14,7 @@ public class Day08 : Day{
         return uniqueSegments;
     }
     public override Int64 Part2(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> input = new List<string>(file);        
+        List<string> input = ConvertLinesToStringList(filepath);
         int displayTotal = 0;
 
         foreach (string line in input){

@@ -3,9 +3,9 @@ public class Day04 : Day{
     public override Int64 Part1(string filepath){
         var (numbersDrawn, bingoCards, scoreboard) = SetupGame(filepath);
         scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);        
-        int lowestTurn = numbersDrawn.Count(), winningScore = 0;
+        int lowestTurn = numbersDrawn.Count, winningScore = 0;
 
-        for (int index = 0; index < bingoCards.Count(); index++){
+        for (int index = 0; index < bingoCards.Count; index++){
             if (scoreboard[2, index] < lowestTurn){
                 winningScore = scoreboard[1, index];
                 lowestTurn = scoreboard[2, index];
@@ -18,7 +18,7 @@ public class Day04 : Day{
         scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);
         int highestTurn = 0, losingScore = 0;
         
-        for (int index = 0; index < bingoCards.Count(); index++){
+        for (int index = 0; index < bingoCards.Count; index++){
             if (scoreboard[2, index] > highestTurn){
                 losingScore = scoreboard[1, index];
                 highestTurn = scoreboard[2, index];
@@ -40,11 +40,10 @@ public class Day04 : Day{
         return scoreboard;
     }
     static (List<int> numbersDrawn, List<int[,]> bingoCards, int[,] scoreboard) SetupGame(string filepath){
-        string[] file = File.ReadAllText(filepath).Split(Environment.NewLine + Environment.NewLine);
-        List<string> gameDetails = new List<string>(file);
+        List<string> gameDetails = ConvertValuesToStringList(filepath, Environment.NewLine + Environment.NewLine);
         //Turn the first line of the input into a list of all the numbers to be drawn and convert them to int
         List<string> numbersDrawnStr = gameDetails[0].Split(',').ToList();
-        List<int> numbersDrawn = new List<int>();
+        List<int> numbersDrawn = new();
         foreach (string number in numbersDrawnStr)
             {numbersDrawn.Add(Convert.ToInt32(number));}
 
@@ -52,24 +51,24 @@ public class Day04 : Day{
         // populated by copying gameDetails then removing that first line of numbers
         List<string> bingoCardStrings = gameDetails.ToList();
         bingoCardStrings.RemoveAt(0);
-        List<int[,]> bingoCards = new List<int[,]>();
+        List<int[,]> bingoCards = new();
         foreach (string bingoCardString in bingoCardStrings)
             {bingoCards.Add(ConvertCardToArray(bingoCardString));}
 
         //Create a scoreboard to keep track of the each card's number, final score when
         // it won and which turn it won on
-        int[,] scoreboard = new int[3, bingoCardStrings.Count()];
+        int[,] scoreboard = new int[3, bingoCardStrings.Count];
         return (numbersDrawn, bingoCards, scoreboard);
     }
     static int[,] ConvertCardToArray(string bingoCardString){
         int[,] bingoCard = new int[5, 5];
         string[] cardLines = bingoCardString.Split(Environment.NewLine);
 
-        for (int line = 0; line < cardLines.Count(); line++){
+        for (int line = 0; line < cardLines.Length; line++){
             string formattedLine = RemoveExtraSpaces(cardLines[line]);
             string[] lineValues = formattedLine.Split(" ");
             
-            for (int value = 0; value < lineValues.Count(); value++)
+            for (int value = 0; value < lineValues.Length; value++)
                 {bingoCard[value, line] = Convert.ToInt32(lineValues[value]);}
         }
         return bingoCard;
