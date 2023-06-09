@@ -1,8 +1,7 @@
 namespace AdventOfCode;
 public class Day06 : Day{
     public override Int64 Part1(string filepath){
-        string[] file = File.ReadAllText(filepath).Split(',');
-        List<string>  fishAges = new List<string>(file);
+        List<string>  fishAges = ConvertValuesToStringList(filepath, ",");
         Int64[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 80; day++)
             {populationByAge = AddOneDay(populationByAge);}
@@ -10,8 +9,7 @@ public class Day06 : Day{
         return population;
     }
     public override Int64 Part2(string filepath){
-        string[] file = File.ReadAllText(filepath).Split(',');
-        List<string>  fishAges = new List<string>(file);
+        List<string>  fishAges = ConvertValuesToStringList(filepath, ",");
         Int64[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 256; day++)
             {populationByAge = AddOneDay(populationByAge);}

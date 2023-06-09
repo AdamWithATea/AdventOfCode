@@ -1,14 +1,12 @@
 namespace AdventOfCode;
 public class Day02 : Day{
     public override Int64 Part1(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> directions = new List<string>(file);
+        List<string> directions = ConvertLinesToStringList(filepath);
         int destination = PlotCourse(directions);
         return destination;
     }
     public override Int64 Part2(string filepath){
-        string[] file = File.ReadAllLines(filepath);
-        List<string> directions = new List<string>(file);
+        List<string> directions = ConvertLinesToStringList(filepath);
         int destination = PlotCourse(directions, 0);
         return destination;
     }
