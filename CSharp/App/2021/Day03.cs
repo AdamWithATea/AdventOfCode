@@ -1,6 +1,9 @@
-namespace AdventOfCode;
+using AdventOfCode;
+using System;
+
+namespace AOC2021;
 public class Day03 : Day{
-    public override Int64 Part1(string filepath){
+    public override long Part1(string filepath){
         List<string> diagnostics = ConvertLinesToStringList(filepath);
         string gamma = "", epsilon = "";
         int position = 0;
@@ -10,14 +13,14 @@ public class Day03 : Day{
         
         while (position < diagnostics[0].Length){
             var (mostCommonBit, leastCommonBit) = BitFrequency(diagnostics, position);
-            gamma = gamma.Substring(0, position) + mostCommonBit + gamma.Substring(position + 1);
-            epsilon = epsilon.Substring(0, position) + leastCommonBit + epsilon.Substring(position + 1);
+            gamma = string.Concat(gamma.AsSpan(0, position), mostCommonBit, gamma.AsSpan(position + 1));
+            epsilon = string.Concat(epsilon.AsSpan(0, position), leastCommonBit, epsilon.AsSpan(position + 1));
             position++;
         }
         int powerConsumption = Convert.ToInt32(gamma, 2) * Convert.ToInt32(epsilon, 2);
         return powerConsumption;
     }
-    public override Int64 Part2(string filepath){
+    public override long Part2(string filepath){
         List<string> diagnostics = ConvertLinesToStringList(filepath);
         int o2 = CalculateLifeSupport(diagnostics, "o2");
         int co2 = CalculateLifeSupport(diagnostics, "co2");
@@ -29,14 +32,10 @@ public class Day03 : Day{
 
         for (int position = 0; position < diagnostics[0].Length && diagnostics.Count > 1; position++){
             var (mostCommonBit, leastCommonBit) = BitFrequency(diagnostics, position);
-            switch (task){
-                case "co2":
-                    comparisonBit = leastCommonBit;
-                    break;
-                default:
-                    comparisonBit = mostCommonBit;
-                    break;
-            }
+            comparisonBit = task switch{
+                "co2" => leastCommonBit,
+                _ => mostCommonBit,
+            };
             diagnostics = diagnostics.Where(x => Convert.ToString(x[position]) == comparisonBit).ToList();
         }
         int rating = Convert.ToInt32(diagnostics[0], 2);

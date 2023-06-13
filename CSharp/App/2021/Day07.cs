@@ -1,17 +1,17 @@
-using System;
+using AdventOfCode;
 
-namespace AdventOfCode;
+namespace AOC2021;
 public class Day07 : Day{
-    public override Int64 Part1(string filepath){
+    public override long Part1(string filepath){
         List<int> crabs = ConvertValuesToIntList(filepath, ",");
         return MedianFuelUsage(crabs);
     }
-    public override Int64 Part2(string filepath){
+    public override long Part2(string filepath){
         List<int> crabs = ConvertValuesToIntList(filepath, ",");
         return LeastFuelUsage(crabs, 1);
     }
     private static int MedianFuelUsage(List<int> crabs){
-        int fuelUsage = 0, medianPosition = 0;
+        int fuelUsage = 0, medianPosition;
         crabs.Sort();
         if (crabs.Count % 2 == 0){ //If the list contains an even number of values
             int valueBelowMiddle = crabs[(crabs.Count/2)-1];
@@ -23,7 +23,7 @@ public class Day07 : Day{
         }
         foreach (int crab in crabs){
             int distanceMoved = medianPosition-crab;
-            distanceMoved = distanceMoved < 0 ? -(distanceMoved) : distanceMoved;
+            distanceMoved = distanceMoved < 0 ? -distanceMoved : distanceMoved;
             fuelUsage += distanceMoved;
         }        
         return fuelUsage;
@@ -39,7 +39,7 @@ public class Day07 : Day{
                 if (crabGroup.Key > position) {distanceMoved += crabGroup.Key - position;}
                 else { distanceMoved += position - crabGroup.Key; }
                 for (int move = 1; move <= distanceMoved; move++){
-                    totalFuelUsed += (fuelPerMove * crabsInGroup);
+                    totalFuelUsed += fuelPerMove * crabsInGroup;
                     fuelPerMove += costIncrement;
                 }
             }

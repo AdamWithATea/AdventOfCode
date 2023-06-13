@@ -1,6 +1,8 @@
-namespace AdventOfCode;
+using AdventOfCode;
+
+namespace AOC2021;
 public class Day09 : Day{
-    public override Int64 Part1(string filepath){
+    public override long Part1(string filepath){
         List<string> terrain = ConvertLinesToStringList(filepath);
 
         var map = MapTerrain(terrain);
@@ -8,11 +10,11 @@ public class Day09 : Day{
         int totalRisk = CalculateTotalRisk(lowPoints);
         return totalRisk;
     }
-    public override Int64 Part2(string filepath){
-        List<string> terrain = ConvertLinesToStringList(filepath);
+    public override long Part2(string filepath){
+        //List<string> terrain = ConvertLinesToStringList(filepath);
 
-        var map = MapTerrain(terrain);
-        List<List<int>> lowPoints = LowPoints(map);
+        //var map = MapTerrain(terrain);
+        //List<List<int>> lowPoints = LowPoints(map);
         return 0;
     }
     static int[,] MapTerrain(List<string> terrain){
@@ -58,21 +60,21 @@ public class Day09 : Day{
         }
         return totalRisk;
     }
-    static void PrintMap(int[,] map){
-        //Print current map for testing purposes
-        for (int y = 0; y < map.GetLength(0); y++){
-            for (int x = 0; x < map.GetLength(1); x++){
-                System.Console.Write(map[y, x]);
+    // static void PrintMap(int[,] map){
+    //     //Print current map for testing purposes
+    //     for (int y = 0; y < map.GetLength(0); y++){
+    //         for (int x = 0; x < map.GetLength(1); x++){
+    //             Console.Write(map[y, x]);
 
-                //Print array index of each value instead:
-                //System.Console.Write(y + "," + x + " ");
-                //If each index/co-ordinate is formatted y,x the array looks like this:
-                // 0,0 0,1 0,2 0,3
-                // 1,0 1,1 1,2 1,3
-                // 2,0 2,1 2,2 2,3
-                // 3,0 3,1 3,2 3,3
-            }
-            System.Console.WriteLine();
-        }
-    }
+    //             //Print array index of each value instead:
+    //             //System.Console.Write(y + "," + x + " ");
+    //             //If each index/co-ordinate is formatted y,x the array looks like this:
+    //             // 0,0 0,1 0,2 0,3
+    //             // 1,0 1,1 1,2 1,3
+    //             // 2,0 2,1 2,2 2,3
+    //             // 3,0 3,1 3,2 3,3
+    //         }
+    //         Console.WriteLine();
+    //     }
+    // }
 }
