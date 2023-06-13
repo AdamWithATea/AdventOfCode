@@ -1,6 +1,7 @@
+import InputHandler
+
 def Run(filepath):
-    with open(filepath) as input:
-        measurements = list(map(int, input.read().split('\n')))
+    measurements = InputHandler.ToIntList(filepath, '\n')
 
     print('Day 1')
     Part1(measurements)

@@ -1,6 +1,7 @@
+import InputHandler
+
 def Run(filepath):
-    with open(filepath) as input:
-        gameDetails = list(map(str, input.read().split('\n\n')))
+    gameDetails = InputHandler.ToStringList(filepath, '\n\n')
 
     print('Day 4')
     Part1(gameDetails)
