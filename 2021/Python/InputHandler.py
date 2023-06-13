@@ -1,9 +1,10 @@
-def BuildFilePath(day, exampleInputs):
-    inputFolder = "AdventOfCode/2021/InputFiles/"
+import settings
+
+def BuildFilePath(day):
     filename = 'Day' + day + '.txt'
-    if exampleInputs == True:
-        filepath = inputFolder + 'Examples/' + filename
-    else: filepath = inputFolder + filename
+    if settings.exampleInputs == True:
+        filepath = settings.exampleFolder + filename
+    else: filepath = settings.inputFolder + filename
     return(filepath)
 
 def ToStringList(filepath, separator):

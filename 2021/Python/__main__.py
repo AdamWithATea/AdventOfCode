@@ -1,12 +1,6 @@
 import InputHandler
+import settings
 import importlib
-
-#1-25 gets that day's answers, any other value gives all answers
-currentDay = 0
-#Highest day that an answer exists for
-highestDay = 3
-#Use the examples instead of the actual inputs?
-exampleInputs = False
 
 def TwoDigitDates(day):
     #Enforce leading zero on days 1-9 to match package and file names
@@ -24,13 +18,13 @@ def GetAllDays(highestDay):
 
 def GetOneDay(day):
     day = TwoDigitDates(day)
-    filepath = InputHandler.BuildFilePath(day, exampleInputs)
+    filepath = InputHandler.BuildFilePath(day)
     packageName = 'Day' + day
     imported = importlib.import_module(packageName)
     imported.Run(filepath)
 
 #If a day that exists is selected, get that day's answers
-if int(currentDay) > 0 and int(currentDay) < highestDay:
-    GetOneDay(currentDay)
+if int(settings.currentDay) > 0 and int(settings.currentDay) < settings.highestDay:
+    GetOneDay(settings.currentDay)
 #Otherwise, get the answers from all days that exist
-else: GetAllDays(highestDay)
+else: GetAllDays(settings.highestDay)
