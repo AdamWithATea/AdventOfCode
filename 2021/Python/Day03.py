@@ -1,6 +1,7 @@
+import InputHandler
+
 def Run(filepath):
-    with open(filepath) as input:
-        diagnostics = list(map(str, input.read().split('\n')))
+    diagnostics = InputHandler.ToStringList(filepath, '\n')
 
     print('Day 3')
     Part1(diagnostics)

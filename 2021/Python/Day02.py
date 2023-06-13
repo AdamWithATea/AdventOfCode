@@ -1,6 +1,7 @@
+import InputHandler
+
 def Run(filepath):
-    with open(filepath) as input:
-        directions = list(map(str, input.read().split('\n')))
+    directions = InputHandler.ToStringList(filepath, '\n')
 
     print('Day 2')
     Part1(directions)
