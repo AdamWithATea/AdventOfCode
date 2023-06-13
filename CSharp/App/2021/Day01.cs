@@ -1,11 +1,13 @@
-namespace AdventOfCode;
+using AdventOfCode;
+
+namespace AOC2021;
 public class Day01 : Day{
-    public override Int64 Part1(string filepath){
+    public override long Part1(string filepath){
         List<string> readings = ConvertLinesToStringList(filepath);
         int increases = CountDepthIncreases(readings, 1);
         return increases;
     }
-    public override Int64 Part2(string filepath){
+    public override long Part2(string filepath){
         List<string> readings = ConvertLinesToStringList(filepath);
         int increases = CountDepthIncreases(readings, 3);
         return increases;

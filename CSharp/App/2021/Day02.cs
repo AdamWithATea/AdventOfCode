@@ -1,11 +1,13 @@
-namespace AdventOfCode;
+using AdventOfCode;
+
+namespace AOC2021;
 public class Day02 : Day{
-    public override Int64 Part1(string filepath){
+    public override long Part1(string filepath){
         List<string> directions = ConvertLinesToStringList(filepath);
         int destination = PlotCourse(directions);
         return destination;
     }
-    public override Int64 Part2(string filepath){
+    public override long Part2(string filepath){
         List<string> directions = ConvertLinesToStringList(filepath);
         int destination = PlotCourse(directions, 0);
         return destination;

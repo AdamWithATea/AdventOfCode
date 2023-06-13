@@ -3,9 +3,8 @@ import InputHandler
 def Run(filepath):
     directions = InputHandler.ToStringList(filepath, '\n')
 
-    print('Day 2')
-    Part1(directions)
-    Part2(directions)
+    print('Day 2-1: ' + Part1(directions)) #The result should be 1989014
+    print('Day 2-2: ' + Part2(directions)) #The result should be 2006917119
     
 def Part1(directions):
     horizontal = 0
@@ -24,8 +23,7 @@ def Part1(directions):
 
     answer = horizontal * depth
 
-    print('Part 1: ' + str(answer))
-    #The result should be 1989014
+    return str(answer)
 
 def Part2(directions):    
     horizontal = 0
@@ -46,5 +44,4 @@ def Part2(directions):
 
     answer = horizontal * depth
 
-    print('Part 2: ' + str(answer))
-    #Result should be 2006917119
+    return str(answer)

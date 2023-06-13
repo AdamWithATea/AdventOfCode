@@ -5,14 +5,14 @@ using Microsoft.Extensions.Hosting;
 namespace AdventOfCode;
 
 public abstract class Day{
-    public virtual void Main(int day, bool useExampleFile){
-        Int64 output1 = Part1(BuildFilePath(day, useExampleFile));
-        System.Console.WriteLine($"Day {day}-1: {output1}");
+    public virtual void Main(int year, int day, bool useExampleFile){
+        long output1 = Part1(BuildFilePath(year, day, useExampleFile));
+        Console.WriteLine($"Day {day}-1: {output1}");
 
-        Int64 output2 = Part2(BuildFilePath(day, useExampleFile));
-        System.Console.WriteLine($"Day {day}-2: {output2}");
+        long output2 = Part2(BuildFilePath(year, day, useExampleFile));
+        Console.WriteLine($"Day {day}-2: {output2}");
     }
-    public string BuildFilePath(int day, bool useExampleFile){
+    public static string BuildFilePath(int year, int day, bool useExampleFile){
         using IHost host = Host.CreateDefaultBuilder().Build();
         IConfiguration settings = host.Services.GetRequiredService<IConfiguration>();
 
@@ -26,7 +26,7 @@ public abstract class Day{
         string exampleFolder = (useExampleFile == true) ? $"Examples{slash}" : "";
         string fileName = day < 10 ? $"Day0{day}" : $"Day{day}";
 
-        string filepath = $"{basePath}InputFiles{slash}{exampleFolder}{fileName}.txt";
+        string filepath = $"{basePath}Inputs{slash}{year}{slash}{exampleFolder}{fileName}.txt";
         return filepath;
     }
     public static List<string> ConvertLinesToStringList(string filepath){
@@ -42,6 +42,6 @@ public abstract class Day{
         return inputs;
     }
     //Enforce existence of Part1() and Part2() in child classes so Main() can always call them:
-    public abstract Int64 Part1(string filepath);
-    public abstract Int64 Part2(string filepath);
+    public abstract long Part1(string filepath);
+    public abstract long Part2(string filepath);
 }

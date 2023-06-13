@@ -3,9 +3,8 @@ import InputHandler
 def Run(filepath):
     diagnostics = InputHandler.ToStringList(filepath, '\n')
 
-    print('Day 3')
-    Part1(diagnostics)
-    Part2(diagnostics)
+    print('Day 3-1: ' + Part1(diagnostics)) #The result should be 3912944
+    print('Day 3-2: ' + Part2(diagnostics)) #The result should be 4996233
 
 def Part1(diagnostics):
     #Fill strings with the right number of characters, to be replaced as the bits are calculated below
@@ -37,8 +36,7 @@ def Part1(diagnostics):
     epsilon = int(epsilon,2)
     powerConsumption = (gamma*epsilon)
 
-    print('Part 1: ' + str(powerConsumption))
-    #Result should be 3912944
+    return str(powerConsumption)
 
 def Part2(diagnostics):    
     def BitFrequency(diagnostics, position, task):
@@ -76,5 +74,4 @@ def Part2(diagnostics):
     co2 = int(Highlander(diagnostics,'co2'),2)
     lifeSupport = o2 * co2
 
-    print('Part 2: ' + str(lifeSupport))
-    #Result should be 4996233
+    return str(lifeSupport)

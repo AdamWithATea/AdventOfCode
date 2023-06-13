@@ -3,19 +3,14 @@ import InputHandler
 def Run(filepath):
     gameDetails = InputHandler.ToStringList(filepath, '\n\n')
 
-    print('Day 4')
-    Part1(gameDetails)
-    Part2(gameDetails)
+    print('Day #-1: ' + Part1(gameDetails)) #The result should be 
+    print('Day #-2: ' + Part2(gameDetails)) #The result should be
 
 def Part1(gameDetails):    
-
-    print('Part 1: ')
-    #The result should be
+    return gameDetails
 
 def Part2(gameDetails):  
-
-    print('Part 2: ')
-    #The result should be
+    return gameDetails
 
 def SetupGame(gameDetails):
     #Turn the first line of the input into a list of all the numbers to be drawn

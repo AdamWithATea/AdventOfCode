@@ -1,6 +1,8 @@
-namespace AdventOfCode;
+using AdventOfCode;
+
+namespace AOC2021;
 public class Day08 : Day{
-    public override Int64 Part1(string filepath){
+    public override long Part1(string filepath){
         List<string> input = ConvertLinesToStringList(filepath);
         int uniqueSegments = 0;
 
@@ -13,7 +15,7 @@ public class Day08 : Day{
         }
         return uniqueSegments;
     }
-    public override Int64 Part2(string filepath){
+    public override long Part2(string filepath){
         List<string> input = ConvertLinesToStringList(filepath);
         int displayTotal = 0;
 
@@ -26,24 +28,23 @@ public class Day08 : Day{
     static (int display, List<int> displayDigits) DecipherOutputs(string line){
         var (patterns, outputs) = SplitLine(line);
         string[,] cypher = CreateCypher(patterns);
-        List<int> displayDigits = new List<int>();
+        List<int> displayDigits = new();
 
         foreach (string output in outputs){
             for (int index = 0; index < 10; index++){
-                int requiredIntersect = 0;
-                requiredIntersect= (output.Length > cypher[index, 1].Length) ? output.Length : cypher[index, 1].Length;
+                int requiredIntersect = (output.Length > cypher[index, 1].Length) ? output.Length : cypher[index, 1].Length;
                 if (output.Intersect(cypher[index, 1]).Count() == requiredIntersect) {displayDigits.Add(index);}
             }
         }
-        string mergedDigits = new string("");
-        foreach (int digit in displayDigits) {mergedDigits = mergedDigits + digit;}
+        string mergedDigits = new("");
+        foreach (int digit in displayDigits) {mergedDigits += digit;}
         int display = Convert.ToInt32(mergedDigits);
         return (display, displayDigits);
     }
     static (List<string> patterns, List<string> outputs) SplitLine(string line){
         string[] splitLine = line.Split(" | ");
-        List<string> patterns = new List<string>(splitLine[0].Split(' '));
-        List<string> outputs = new List<string>(splitLine[1].Split(' '));
+        List<string> patterns = new(splitLine[0].Split(' '));
+        List<string> outputs = new(splitLine[1].Split(' '));
         return (patterns, outputs);
     }
     static string[,] CreateCypher(List<string> patterns){

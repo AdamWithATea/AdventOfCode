@@ -1,6 +1,8 @@
-namespace AdventOfCode;
+using AdventOfCode;
+
+namespace AOC2021;
 public class Day04 : Day{
-    public override Int64 Part1(string filepath){
+    public override long Part1(string filepath){
         var (numbersDrawn, bingoCards, scoreboard) = SetupGame(filepath);
         scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);        
         int lowestTurn = numbersDrawn.Count, winningScore = 0;
@@ -13,7 +15,7 @@ public class Day04 : Day{
         }
         return winningScore;
     }
-    public override Int64 Part2(string filepath){
+    public override long Part2(string filepath){
         var (numbersDrawn, bingoCards, scoreboard) = SetupGame(filepath);
         scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);
         int highestTurn = 0, losingScore = 0;
@@ -91,7 +93,7 @@ public class Day04 : Day{
                 markedNumbersSum += markedNumbersLineSum;
             }
 
-            hasWon = (rowTallies.Contains(5) || columnTallies.Contains(5));
+            hasWon = rowTallies.Contains(5) || columnTallies.Contains(5);
             if (hasWon == true){
                 lastNumberDrawn = numberDrawn;
                 break;
@@ -125,7 +127,7 @@ public class Day04 : Day{
     }
     static string RemoveExtraSpaces(string line){
         if (Convert.ToString(line[0]) == " ")
-        { line = line.Substring(1); }
+        { line = line[1..]; }
         line = line.Replace("  ", " ");
         return line;
     }
