@@ -3,12 +3,10 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day07 : Day{
     public override long Part1(string filepath){
-        List<int> crabs = InputHandler.ValuesToIntList(filepath, ",");
-        return MedianFuelUsage(crabs);
+        return MedianFuelUsage(InputHandler.ValuesToIntList(filepath, ","));
     }
-    public override long Part2(string filepath){
-        List<int> crabs = InputHandler.ValuesToIntList(filepath, ",");
-        return LeastFuelUsage(crabs, 1);
+    public override long Part2(string filepath){        
+        return LeastFuelUsage(InputHandler.ValuesToIntList(filepath, ","), 1);
     }
     private static int MedianFuelUsage(List<int> crabs){
         int fuelUsage = 0, medianPosition;

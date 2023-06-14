@@ -13,24 +13,19 @@ public static class InputHandler{
         string platformPath = settings.GetValue<string>($"Environment:Root:{platform}");
         //Expand out any environment variables in the path (e.g. %UserProfile% and %HOME%)
         string basePath = Environment.ExpandEnvironmentVariables(platformPath);
-
-        string slash = (settings.GetValue<string>("Environment:Platform") == "Windows") ? "\\" : "/";
+        string slash = (platform == "Windows") ? "\\" : "/";
         string exampleFolder = (useExampleFile == true) ? $"Examples{slash}" : "";
-        string fileName = day < 10 ? $"Day0{day}" : $"Day{day}";
+        string fileName = day < 10 ? $"Day0{day}.txt" : $"Day{day}.txt";
 
-        string filepath = $"{basePath}Inputs{slash}{year}{slash}{exampleFolder}{fileName}.txt";
-        return filepath;
+        return $"{basePath}Inputs{slash}{year}{slash}{exampleFolder}{fileName}";        
     }
     public static List<string> LinesToStringList(string filepath){
-        List<string> inputs = File.ReadAllLines(filepath).ToList();
-        return inputs;
+        return File.ReadAllLines(filepath).ToList();
     }
     public static List<string> ValuesToStringList(string filepath, string separator){
-        List<string> inputs = File.ReadAllText(filepath).Split(separator).ToList();
-        return inputs;
+        return File.ReadAllText(filepath).Split(separator).ToList();        
     }
     public static List<int> ValuesToIntList(string filepath, string separator){
-        List<int> inputs = File.ReadAllText(filepath).Split(separator).Select(int.Parse).ToList();
-        return inputs;
+        return File.ReadAllText(filepath).Split(separator).Select(int.Parse).ToList();        
     }
 }

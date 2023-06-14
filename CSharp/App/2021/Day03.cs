@@ -17,15 +17,13 @@ public class Day03 : Day{
             epsilon = string.Concat(epsilon.AsSpan(0, position), leastCommonBit, epsilon.AsSpan(position + 1));
             position++;
         }
-        int powerConsumption = Convert.ToInt32(gamma, 2) * Convert.ToInt32(epsilon, 2);
-        return powerConsumption;
+        return Convert.ToInt32(gamma, 2) * Convert.ToInt32(epsilon, 2);        
     }
     public override long Part2(string filepath){
         List<string> diagnostics = InputHandler.LinesToStringList(filepath);
         int o2 = CalculateLifeSupport(diagnostics, "o2");
         int co2 = CalculateLifeSupport(diagnostics, "co2");
-        int lifeSupport = o2 * co2;
-        return lifeSupport;
+        return  o2 * co2;        
     }
     static int CalculateLifeSupport(List<string> diagnostics, string task){
         string comparisonBit;

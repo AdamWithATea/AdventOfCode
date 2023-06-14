@@ -3,14 +3,10 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day01 : Day{
     public override long Part1(string filepath){
-        List<string> readings = InputHandler.LinesToStringList(filepath);
-        int increases = CountDepthIncreases(readings, 1);
-        return increases;
+        return CountDepthIncreases(InputHandler.LinesToStringList(filepath), 1);
     }
     public override long Part2(string filepath){
-        List<string> readings = InputHandler.LinesToStringList(filepath);
-        int increases = CountDepthIncreases(readings, 3);
-        return increases;
+        return CountDepthIncreases(InputHandler.LinesToStringList(filepath), 3);
     }
     static int CountDepthIncreases(List<string> readings, int groupSize){
         int currentSum = 0, previousSum = 0, increases = 0, depth, index = 0, indexDiff = groupSize - 1;

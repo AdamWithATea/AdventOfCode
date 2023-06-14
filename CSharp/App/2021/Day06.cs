@@ -7,16 +7,14 @@ public class Day06 : Day{
         long[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 80; day++)
             {populationByAge = AddOneDay(populationByAge);}
-        long population = populationByAge.Sum();
-        return population;
+        return populationByAge.Sum();
     }
     public override long Part2(string filepath){
         List<string>  fishAges = InputHandler.ValuesToStringList(filepath, ",");
         long[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 256; day++)
             {populationByAge = AddOneDay(populationByAge);}
-        long population = populationByAge.Sum();
-        return population;
+        return  populationByAge.Sum();        
     }
     private static long[] AddOneDay(long[] existingPopulation){
         long[] newPopulation = new long[9];
