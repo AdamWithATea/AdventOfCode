@@ -3,7 +3,7 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day09 : Day{
     public override long Part1(string filepath){
-        List<string> terrain = ConvertLinesToStringList(filepath);
+        List<string> terrain = InputHandler.LinesToStringList(filepath);
 
         var map = MapTerrain(terrain);
         List<List<int>> lowPoints = LowPoints(map);
@@ -11,7 +11,7 @@ public class Day09 : Day{
         return totalRisk;
     }
     public override long Part2(string filepath){
-        //List<string> terrain = ConvertLinesToStringList(filepath);
+        //List<string> terrain = InputHandler.ConvertLinesToStringList(filepath);
 
         //var map = MapTerrain(terrain);
         //List<List<int>> lowPoints = LowPoints(map);

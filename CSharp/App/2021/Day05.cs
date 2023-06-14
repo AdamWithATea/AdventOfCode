@@ -3,7 +3,7 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day05 : Day{
     public override long Part1(string filepath){
-        List<string> ventLocations = ConvertLinesToStringList(filepath);
+        List<string> ventLocations = InputHandler.LinesToStringList(filepath);
         int[,] map = CreateMap(ventLocations);
 
         foreach (string ventLocation in ventLocations)
@@ -12,7 +12,7 @@ public class Day05 : Day{
         return overlaps;
     }
     public override long Part2(string filepath){
-        List<string> ventLocations = ConvertLinesToStringList(filepath);
+        List<string> ventLocations = InputHandler.LinesToStringList(filepath);
         int[,] map = CreateMap(ventLocations);
 
         foreach (string ventLocation in ventLocations)

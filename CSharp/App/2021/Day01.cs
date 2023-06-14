@@ -3,12 +3,12 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day01 : Day{
     public override long Part1(string filepath){
-        List<string> readings = ConvertLinesToStringList(filepath);
+        List<string> readings = InputHandler.LinesToStringList(filepath);
         int increases = CountDepthIncreases(readings, 1);
         return increases;
     }
     public override long Part2(string filepath){
-        List<string> readings = ConvertLinesToStringList(filepath);
+        List<string> readings = InputHandler.LinesToStringList(filepath);
         int increases = CountDepthIncreases(readings, 3);
         return increases;
     }

@@ -3,7 +3,7 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day08 : Day{
     public override long Part1(string filepath){
-        List<string> input = ConvertLinesToStringList(filepath);
+        List<string> input = InputHandler.LinesToStringList(filepath);
         int uniqueSegments = 0;
 
         foreach (string line in input){
@@ -16,7 +16,7 @@ public class Day08 : Day{
         return uniqueSegments;
     }
     public override long Part2(string filepath){
-        List<string> input = ConvertLinesToStringList(filepath);
+        List<string> input = InputHandler.LinesToStringList(filepath);
         int displayTotal = 0;
 
         foreach (string line in input){

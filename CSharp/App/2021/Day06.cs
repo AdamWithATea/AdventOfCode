@@ -3,7 +3,7 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day06 : Day{
     public override long Part1(string filepath){
-        List<string>  fishAges = ConvertValuesToStringList(filepath, ",");
+        List<string>  fishAges = InputHandler.ValuesToStringList(filepath, ",");
         long[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 80; day++)
             {populationByAge = AddOneDay(populationByAge);}
@@ -11,7 +11,7 @@ public class Day06 : Day{
         return population;
     }
     public override long Part2(string filepath){
-        List<string>  fishAges = ConvertValuesToStringList(filepath, ",");
+        List<string>  fishAges = InputHandler.ValuesToStringList(filepath, ",");
         long[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 256; day++)
             {populationByAge = AddOneDay(populationByAge);}
