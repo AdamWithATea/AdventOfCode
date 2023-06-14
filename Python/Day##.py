@@ -1,14 +1,14 @@
 import InputHandler
 
-def Run(filepath):
+def Run(useExamples):
+    filepath = InputHandler.BuildFilePath(2000,0,useExamples)
+    print('Day #-1: ' + Part1(filepath))
+    print('Day #-2: ' + Part2(filepath))
+
+def Part1(filepath):
     intInputList = InputHandler.ToIntList(filepath, '\n')
+    return 0
+
+def Part2(filepath):
     strInputList = InputHandler.ToStringList(filepath, '\n')
-
-    print('Day #-1: ' + Part1(intInputList)) #The result should be 
-    print('Day #-2: ' + Part2(strInputList)) #The result should be
-
-def Part1(inputList):    
-    return inputList
-
-def Part2(inputList):
-    return inputList
+    return 0

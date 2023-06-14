@@ -1,12 +1,12 @@
 import InputHandler
 
-def Run(filepath):
-    measurements = InputHandler.ToIntList(filepath, '\n')
+def Run(useExamples):
+    filepath = InputHandler.BuildFilePath(2021, 1, useExamples)
+    print('Day 1-1: ' + str(Part1(filepath)))
+    print('Day 1-2: ' + str(Part2(filepath)))
 
-    print('Day 1-1: ' + Part1(measurements)) #The result should be 1791
-    print('Day 1-2: ' + Part2(measurements)) #The result should be 1822
-
-def Part1(measurements):
+def Part1(filepath):
+    measurements = InputHandler.FileToIntList(filepath, '\n')
     increases = 0
     previousDepth = None
 
@@ -16,9 +16,10 @@ def Part1(measurements):
             increases += 1
         previousDepth = depth
     
-    return str(increases)
+    return increases
 
-def Part2(measurements):
+def Part2(filepath):
+    measurements = InputHandler.FileToIntList(filepath, '\n')
     increases = 0
     previousSum = None
 
@@ -34,4 +35,4 @@ def Part2(measurements):
             increases += 1
         previousSum = currentSum
 
-    return str(increases)
+    return increases

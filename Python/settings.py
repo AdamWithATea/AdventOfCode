@@ -5,7 +5,7 @@ load_dotenv()
 inputPath = os.getenv('INPUT_PATH')
 slash = os.getenv('SLASH')
 
-exampleInputs = False
+useExamples = False
 runAllDays = True
 day = 3
 year = 2021
