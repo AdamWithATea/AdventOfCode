@@ -3,11 +3,11 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day07 : Day{
     public override long Part1(string filepath){
-        List<int> crabs = ConvertValuesToIntList(filepath, ",");
+        List<int> crabs = InputHandler.ValuesToIntList(filepath, ",");
         return MedianFuelUsage(crabs);
     }
     public override long Part2(string filepath){
-        List<int> crabs = ConvertValuesToIntList(filepath, ",");
+        List<int> crabs = InputHandler.ValuesToIntList(filepath, ",");
         return LeastFuelUsage(crabs, 1);
     }
     private static int MedianFuelUsage(List<int> crabs){
