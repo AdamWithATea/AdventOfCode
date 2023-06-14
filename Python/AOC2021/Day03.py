@@ -1,12 +1,12 @@
 import InputHandler
 
-def Run(filepath):
-    diagnostics = InputHandler.ToStringList(filepath, '\n')
+def Run(useExamples):
+    filepath = InputHandler.BuildFilePath(2021, 3, useExamples)
+    print('Day 3-1: ' + str(Part1(filepath)))
+    print('Day 3-2: ' + str(Part2(filepath)))
 
-    print('Day 3-1: ' + Part1(diagnostics)) #The result should be 3912944
-    print('Day 3-2: ' + Part2(diagnostics)) #The result should be 4996233
-
-def Part1(diagnostics):
+def Part1(filepath):
+    diagnostics = InputHandler.FileToStringList(filepath, '\n')
     #Fill strings with the right number of characters, to be replaced as the bits are calculated below
     gamma = '#' * len(diagnostics[0])
     epsilon = '#' * len(diagnostics[0])
@@ -36,9 +36,10 @@ def Part1(diagnostics):
     epsilon = int(epsilon,2)
     powerConsumption = (gamma*epsilon)
 
-    return str(powerConsumption)
+    return powerConsumption
 
-def Part2(diagnostics):    
+def Part2(filepath):
+    diagnostics = InputHandler.FileToStringList(filepath, '\n')
     def BitFrequency(diagnostics, position, task):
         ones = zeroes = count = mostCommonBit = 0
         for entry in diagnostics:
@@ -74,4 +75,4 @@ def Part2(diagnostics):
     co2 = int(Highlander(diagnostics,'co2'),2)
     lifeSupport = o2 * co2
 
-    return str(lifeSupport)
+    return lifeSupport

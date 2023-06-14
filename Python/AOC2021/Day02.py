@@ -1,12 +1,12 @@
 import InputHandler
 
-def Run(filepath):
-    directions = InputHandler.ToStringList(filepath, '\n')
-
-    print('Day 2-1: ' + Part1(directions)) #The result should be 1989014
-    print('Day 2-2: ' + Part2(directions)) #The result should be 2006917119
+def Run(useExamples):
+    filepath = InputHandler.BuildFilePath(2021, 2, useExamples)
+    print('Day 2-1: ' + str(Part1(filepath)))
+    print('Day 2-2: ' + str(Part2(filepath)))
     
-def Part1(directions):
+def Part1(filepath):
+    directions = InputHandler.FileToStringList(filepath, '\n')
     horizontal = 0
     depth = 0
 
@@ -23,9 +23,10 @@ def Part1(directions):
 
     answer = horizontal * depth
 
-    return str(answer)
+    return answer
 
-def Part2(directions):    
+def Part2(filepath):
+    directions = InputHandler.FileToStringList(filepath, '\n') 
     horizontal = 0
     depth = 0
     aim = 0
@@ -44,4 +45,4 @@ def Part2(directions):
 
     answer = horizontal * depth
 
-    return str(answer)
+    return answer
