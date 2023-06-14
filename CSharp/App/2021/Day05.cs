@@ -8,8 +8,7 @@ public class Day05 : Day{
 
         foreach (string ventLocation in ventLocations)
             {UpdateMap(map, ventLocation, false);}
-        int overlaps = CountOverlaps(map);
-        return overlaps;
+        return CountOverlaps(map);        
     }
     public override long Part2(string filepath){
         List<string> ventLocations = InputHandler.LinesToStringList(filepath);
@@ -17,8 +16,7 @@ public class Day05 : Day{
 
         foreach (string ventLocation in ventLocations)
             {UpdateMap(map, ventLocation, true);}
-        int overlaps = CountOverlaps(map);
-        return overlaps;
+        return CountOverlaps(map);        
     }
     static int[,] CreateMap(List<string> ventLocations){
         List<int> xValues = new(), yValues = new();
