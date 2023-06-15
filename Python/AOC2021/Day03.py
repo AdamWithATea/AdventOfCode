@@ -6,73 +6,36 @@ def Run(useExamples):
     print('Day 3-2: ' + str(Part2(filepath)))
 
 def Part1(filepath):
-    diagnostics = InputHandler.FileToStringList(filepath, '\n')
-    #Fill strings with the right number of characters, to be replaced as the bits are calculated below
-    gamma = '#' * len(diagnostics[0])
-    epsilon = '#' * len(diagnostics[0])
-
-    for bit in range(len(diagnostics[0])):
-        ones = zeroes = count = leastCommonBit = mostCommonBit = 0
-
-        for line in diagnostics:
-            #Just add the value in the 'bit' position. If it's 1 it will increment 'ones', if it's 0 it won't
-            ones += int(line[bit])
-            count += 1
-
-        #Because there are only ones and zeroes: 
-        zeroes = count - ones
-
-        if ones > zeroes:
-            mostCommonBit = 1
-        elif zeroes > ones:        
-            leastCommonBit = 1
-
-        #Insert results into the relevant spot while keeping the rest of the string intact
-        gamma = gamma[:bit] + str(mostCommonBit) + gamma[bit+1:]
-        epsilon = epsilon[:bit] + str(leastCommonBit) + epsilon[bit+1:]
-
-    #Convert strings into binary numbers, i.e base-2 integers
-    gamma = int(gamma,2)
-    epsilon = int(epsilon,2)
-    powerConsumption = (gamma*epsilon)
-
-    return powerConsumption
+    return RunDiagnostics('PowerConsumption', InputHandler.FileToStringList(filepath, '\n'))
 
 def Part2(filepath):
-    diagnostics = InputHandler.FileToStringList(filepath, '\n')
-    def BitFrequency(diagnostics, position, task):
-        ones = zeroes = count = mostCommonBit = 0
-        for entry in diagnostics:
-            #Just add the value in the relevant position. If it's 1 it will increment 'ones', if it's 0 it won't
+    return RunDiagnostics('LifeSupport', InputHandler.FileToStringList(filepath, '\n'))
+
+def RunDiagnostics (task, report):
+    mostCommon = int(DiagnosticResults(report, task, 'Most'),2)
+    leastCommon = int(DiagnosticResults(report, task, 'Least'),2)
+    return mostCommon*leastCommon
+
+def DiagnosticResults(report, task, mostOrLeast):
+    bitString = '0' * len(report[0])
+    for position in range(len(report[0])):
+        ones = 0
+        for entry in report:
             ones += int(entry[position])
-            count +=1
-        #Because there are only ones and zeroes: 
-        zeroes = count - ones
-        if zeroes > ones:
-            mostCommonBit = 0
-        #Because in a draw, 1 wins:
-        else: mostCommonBit = 1
-        if task == 'o2':
-            return mostCommonBit
-        elif task == 'co2':
-            #Because in both possible cases, this will result in the least common bit:
-            return (1 - mostCommonBit)
-
-    def Highlander(diagnostics, task):
-    #There can be only one... (item left in the list)
-        for position in range(len(diagnostics[0])):
-            #Get either the most or least common bit for the o2 and co2 tasks respectively
-            comparisonBit = BitFrequency(diagnostics, position, task)
-            #Keep only the entries which have comparisonBit in the current position:
-            diagnostics = [entry for entry in diagnostics if int(entry[position]) == comparisonBit]
-            #Stop when there's only one left
-            if len(diagnostics) <= 1:
-                break
-        return diagnostics[0]
-
-    #Get binary numbers made up of most (o2) and least (co2) common bits
-    o2 = int(Highlander(diagnostics,'o2'),2)
-    co2 = int(Highlander(diagnostics,'co2'),2)
-    lifeSupport = o2 * co2
-
-    return lifeSupport
+            if ((ones >= len(report)-ones and mostOrLeast == 'Most')
+                or (ones < len(report)-ones and mostOrLeast == 'Least')):
+                bitValue = '1'
+            else:
+                bitValue = '0'
+        match task:
+            case "PowerConsumption":
+                #Insert the bit into position while keeping the rest of the string intact
+                bitString = bitString[:position] + bitValue + bitString[position+1:]
+            case "LifeSupport":
+                #Only keep entries with the same bit as the bitString in the current position
+                report = [entry for entry in report if entry[position] == bitValue]
+        if len(report) <= 1:
+            #If the Life Support task removes all but other values, stop and return the last one
+            bitString = report[0]
+            break
+    return bitString
