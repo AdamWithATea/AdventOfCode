@@ -12,21 +12,22 @@ def Part2(filepath):
     return RunDiagnostics('LifeSupport', InputHandler.FileToStringList(filepath, '\n'))
 
 def RunDiagnostics (task, report):
-    mostCommon = int(DiagnosticResults(report, task, 'Most'),2)
-    leastCommon = int(DiagnosticResults(report, task, 'Least'),2)
+    mostCommon = DiagnosticResults(report, task, 'Most')
+    leastCommon = DiagnosticResults(report, task, 'Least')
     return mostCommon*leastCommon
 
 def DiagnosticResults(report, task, mostOrLeast):
+    #Pad out the initial string with 0s up to the required length
     bitString = '0' * len(report[0])
     for position in range(len(report[0])):
         ones = 0
         for entry in report:
             ones += int(entry[position])
-            if ((ones >= len(report)-ones and mostOrLeast == 'Most')
-                or (ones < len(report)-ones and mostOrLeast == 'Least')):
-                bitValue = '1'
-            else:
-                bitValue = '0'
+        if ((ones >= len(report)-ones and mostOrLeast == 'Most')
+            or (ones < len(report)-ones and mostOrLeast == 'Least')):
+            bitValue = '1'
+        else:
+            bitValue = '0'
         match task:
             case "PowerConsumption":
                 #Insert the bit into position while keeping the rest of the string intact
@@ -38,4 +39,4 @@ def DiagnosticResults(report, task, mostOrLeast):
             #If the Life Support task removes all but other values, stop and return the last one
             bitString = report[0]
             break
-    return bitString
+    return int(bitString,2) #Convert string of 1s & 0s to a base-2 int before returning it

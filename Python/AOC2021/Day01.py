@@ -6,24 +6,19 @@ def Run(useExamples):
     print('Day 1-2: ' + str(Part2(filepath)))
 
 def Part1(filepath):
-    return MeasureDepthIncreases(InputHandler.FileToIntList(filepath, '\n'), 1)
+    return CountDepthIncreases(InputHandler.FileToIntList(filepath, '\n'), 1)
 
 def Part2(filepath):
-    return MeasureDepthIncreases(InputHandler.FileToIntList(filepath, '\n'), 3)
+    return CountDepthIncreases(InputHandler.FileToIntList(filepath, '\n'), 3)
 
-def MeasureDepthIncreases(measurements, groupSize):
-    increases = 0
-    index = 0
-    previousGroup = 0
+def CountDepthIncreases(measurements, groupSize):
+    increases = index = previousGroup = 0
     lastGroupStartingIndex = len(measurements)-groupSize
-
-    #Emulate a do...while loop using "while True" and "break"
+    #Emulate a do...while loop using "while True" and "if (end of loop): break"
     while True:
         currentGroup = 0
-        #Add every value in the group to the current group's sum
         for i in range(index, index+groupSize):
             currentGroup += measurements[i]
-        #Increment if this isn't the first set of measurements and the sum has increased
         if index > 0 and currentGroup > previousGroup:
             increases += 1
         previousGroup = currentGroup

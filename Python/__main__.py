@@ -5,8 +5,7 @@ import importlib
 def GetOneDay(day):
     day = InputHandler.DoubleDigitDay(day)
     packageName = 'AOC' + str(settings.year) + '.Day' + day
-    imported = importlib.import_module(packageName)
-    imported.Run(settings.useExamples)
+    importlib.import_module(packageName).Run(settings.useExamples)
 
 def GetAllDays(highestDay):
     for day in range(1, highestDay+1):
