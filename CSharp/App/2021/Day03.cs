@@ -4,60 +4,41 @@ using System;
 namespace AOC2021;
 public class Day03 : Day{
     public override long Part1(string filepath){
-        List<string> diagnostics = InputHandler.LinesToStringList(filepath);
-        string gamma = "", epsilon = "";
-        int position = 0;
-        //Fill strings with the right number of characters, to be replaced as the bits are calculated below
-        gamma = gamma.PadLeft(diagnostics[0].Length, '#');
-        epsilon = epsilon.PadLeft(diagnostics[0].Length, '#');
-        
-        while (position < diagnostics[0].Length){
-            var (mostCommonBit, leastCommonBit) = BitFrequency(diagnostics, position);
-            gamma = string.Concat(gamma.AsSpan(0, position), mostCommonBit, gamma.AsSpan(position + 1));
-            epsilon = string.Concat(epsilon.AsSpan(0, position), leastCommonBit, epsilon.AsSpan(position + 1));
-            position++;
-        }
-        return Convert.ToInt32(gamma, 2) * Convert.ToInt32(epsilon, 2);        
+        return RunDiagnostics("PowerConsumption", InputHandler.LinesToStringList(filepath));
     }
     public override long Part2(string filepath){
-        List<string> diagnostics = InputHandler.LinesToStringList(filepath);
-        int o2 = CalculateLifeSupport(diagnostics, "o2");
-        int co2 = CalculateLifeSupport(diagnostics, "co2");
-        return  o2 * co2;        
+        return RunDiagnostics("LifeSupport", InputHandler.LinesToStringList(filepath));
     }
-    static int CalculateLifeSupport(List<string> diagnostics, string task){
-        string comparisonBit;
-
-        for (int position = 0; position < diagnostics[0].Length && diagnostics.Count > 1; position++){
-            var (mostCommonBit, leastCommonBit) = BitFrequency(diagnostics, position);
-            comparisonBit = task switch{
-                "co2" => leastCommonBit,
-                _ => mostCommonBit,
-            };
-            diagnostics = diagnostics.Where(x => Convert.ToString(x[position]) == comparisonBit).ToList();
-        }
-        int rating = Convert.ToInt32(diagnostics[0], 2);
-        return rating;
+    static int RunDiagnostics (string task, List<string> report){
+        int mostCommon = DiagnosticResults(report, task, "Most");
+        int leastCommon = DiagnosticResults(report, task, "Least");
+        return mostCommon*leastCommon;
     }
-    static (string most, string least) BitFrequency(List<string> diagnostics, int position){
-        //Calculate the most and least common bit in the current postion in all strings
-        int count = 0, ones = 0;
-        string mostCommonBit, leastCommonBit;
-
-        foreach (string diagnostic in diagnostics){
-            int bit = int.Parse(diagnostic[position].ToString());
-            //Just adds the bit rather than checking if it's a 1
-            // because if it's a 0 that won't affect the value
-            ones += bit;
-            count++;
+    static int DiagnosticResults (List<string> report, string task, string mostOrLeast){
+        //Pad out the initial string with 0s up to the required length
+        string bitString = "";
+        bitString = bitString.PadLeft(report[0].Length, '0');
+        for (int position = 0; position < report[0].Length && report.Count > 1; position++){
+            int ones = 0;
+            string bitValue;
+            foreach (var entry in report){ ones += int.Parse(entry[position].ToString()); }
+            if ((ones >= report.Count-ones && mostOrLeast == "Most")
+                ||(ones < report.Count-ones && mostOrLeast == "Least")){
+                bitValue = "1";
+            }
+            else{ bitValue = "0"; }
+            switch (task){
+                case "PowerConsumption":
+                    //Insert the bit into position while keeping the rest of the string intact
+                    bitString = string.Concat(bitString.AsSpan(0, position), bitValue, bitString.AsSpan(position + 1));
+                    break;
+                case "LifeSupport":
+                    //Only keep entries with the same bit as the bitString in the current position
+                    report = report.Where(x => Convert.ToString(x[position]) == bitValue).ToList();
+                    if (report.Count <= 1){ bitString = report[0];}
+                    break;
+            }
         }
-        if (ones < count - ones){ //count-ones = the number of 0s in the string
-            mostCommonBit = "0";
-            leastCommonBit = "1";
-        }
-        else{mostCommonBit = "1";
-            leastCommonBit = "0";
-        }
-        return (mostCommonBit, leastCommonBit);
+        return Convert.ToInt32(bitString, 2); //Convert string of 1s & 0s to a base-2 int before returning it
     }
 }
