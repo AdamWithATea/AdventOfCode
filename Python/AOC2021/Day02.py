@@ -12,13 +12,11 @@ def Part2(filepath):
     return PlotCourse(InputHandler.FileToStringList(filepath, '\n'), True)
 
 def PlotCourse (directions, useAim):
-    horizontal = 0
-    depth = 0
-    aim = 0    
-    for instruction in directions:
-        direction = instruction.split(' ')[0]
-        distance = int(instruction.split(' ')[1])
-        match direction:
+    horizontal = depth = aim = 0    
+    for direction in directions:
+        heading = direction.split(' ')[0]
+        distance = int(direction.split(' ')[1])
+        match heading:
             case "forward":
                 horizontal += distance
                 if (useAim):

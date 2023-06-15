@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 load_dotenv()
 inputPath = os.getenv('INPUT_PATH')
 slash = os.getenv('SLASH')
-
 useExamples = False
 runAllDays = True
 day = 3
