@@ -1,13 +1,15 @@
-from .. import inputs
+import inputs
 
-def run(filepath):
-    print('2-1: ' + str(part1(filepath)))
-    print('2-2: ' + str(part2(filepath)))
+def run(use_examples):
+    print('2-1: ' + str(part1(use_examples)))
+    print('2-2: ' + str(part2(use_examples)))
     
-def part1(filepath):
+def part1(use_examples):
+    filepath = inputs.build_filepath(2021, 2, use_examples)
     return plot_course(inputs.list_strings(filepath, '\n'), False)
 
-def part2(filepath):
+def part2(use_examples):
+    filepath = inputs.build_filepath(2021, 2, use_examples)
     return plot_course(inputs.list_strings(filepath, '\n'), True)
 
 def plot_course (directions, use_aim):

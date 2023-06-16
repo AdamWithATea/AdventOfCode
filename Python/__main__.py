@@ -3,11 +3,9 @@ import settings
 import importlib
 
 def run_day(day):
-    year = str(settings.year)
     day = inputs.two_digit_day(day)
-    filepath = inputs.build_filepath(year, day, settings.use_examples)
-    package_name = 'aoc' + year + '.day' + day
-    importlib.import_module(package_name).run(filepath)
+    package_name = 'aoc' + str(settings.year) + '.day' + day
+    importlib.import_module(package_name).run(settings.use_examples)
 
 def run_all(highest_day):
     for day in range(1, highest_day+1):
