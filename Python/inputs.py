@@ -1,4 +1,4 @@
-from . import settings
+import settings
 
 def build_filepath(year, day, use_examples):
     root_path = settings.input_path + str(year) + settings.slash

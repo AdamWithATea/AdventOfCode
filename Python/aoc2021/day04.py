@@ -1,4 +1,4 @@
-from .. import inputs
+import inputs
 
 def run(filepath):
     print('#-1: ' + str(part1(filepath)))

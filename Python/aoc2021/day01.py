@@ -1,13 +1,15 @@
-from .. import inputs
+import inputs
 
-def run(filepath):
-    print('1-1: ' + str(part1(filepath)))
-    print('1-2: ' + str(part2(filepath)))
+def run(use_examples):
+    print('1-1: ' + str(part1(use_examples)))
+    print('1-2: ' + str(part2(use_examples)))
 
-def part1(filepath):
+def part1(use_examples):
+    filepath = inputs.build_filepath(2021, 1, use_examples)
     return count_increases(inputs.list_ints(filepath, '\n'), 1)
 
-def part2(filepath):
+def part2(use_examples):
+    filepath = inputs.build_filepath(2021, 1, use_examples)
     return count_increases(inputs.list_ints(filepath, '\n'), 3)
 
 def count_increases(measurements, group_size):

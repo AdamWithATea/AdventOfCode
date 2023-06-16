@@ -1,13 +1,15 @@
-from .. import inputs
+import inputs
 
-def run(filepath):
-    print('3-1: ' + str(part1(filepath)))
-    print('3-2: ' + str(part2(filepath)))
+def run(use_examples):
+    print('3-1: ' + str(part1(use_examples)))
+    print('3-2: ' + str(part2(use_examples)))
 
-def part1(filepath):
+def part1(use_examples):
+    filepath = inputs.build_filepath(2021, 3, use_examples)
     return run_diagnostics('power', inputs.list_strings(filepath, '\n'))
 
-def part2(filepath):
+def part2(use_examples):
+    filepath = inputs.build_filepath(2021, 3, use_examples)
     return run_diagnostics('life', inputs.list_strings(filepath, '\n'))
 
 def run_diagnostics (task, report):
