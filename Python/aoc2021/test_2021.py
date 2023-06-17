@@ -1,4 +1,4 @@
-from aoc2021 import day01, day02, day03
+from aoc2021 import day01, day02, day03, day04
 
 def test_day01():
     assert day01.part1(True) == 7
@@ -17,3 +17,9 @@ def test_day03():
     assert day03.part1(False) == 3912944
     assert day03.part2(True) == 230
     assert day03.part2(False) == 4996233
+
+def test_day04():
+    assert day04.part1(True) == 4512
+    assert day04.part1(False) == 33462
+    assert day04.part2(True) == 1924
+    assert day04.part2(False) == 30070
