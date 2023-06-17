@@ -3,14 +3,14 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day06 : Day{
     public override long Part1(string filepath){
-        List<string>  fishAges = InputHandler.ValuesToStringList(filepath, ",");
+        List<string>  fishAges = Inputs.ListStrings(filepath, ",");
         long[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 80; day++)
             {populationByAge = AddOneDay(populationByAge);}
         return populationByAge.Sum();
     }
     public override long Part2(string filepath){
-        List<string>  fishAges = InputHandler.ValuesToStringList(filepath, ",");
+        List<string>  fishAges = Inputs.ListStrings(filepath, ",");
         long[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 256; day++)
             {populationByAge = AddOneDay(populationByAge);}

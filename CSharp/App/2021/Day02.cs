@@ -3,10 +3,10 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day02 : Day{
     public override long Part1(string filepath){
-        return PlotCourse(InputHandler.LinesToStringList(filepath), false);
+        return PlotCourse(Inputs.ListLines(filepath), false);
     }
     public override long Part2(string filepath){
-        return PlotCourse(InputHandler.LinesToStringList(filepath), true);
+        return PlotCourse(Inputs.ListLines(filepath), true);
     }
     static int PlotCourse(List<string> directions, bool useAim){
         int horizontal = 0, depth = 0, aim = 0;

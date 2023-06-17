@@ -43,7 +43,7 @@ public class Day04 : Day{
     }
     static (List<int> numbersDrawn, List<int[,]> bingoCards, int[,] scoreboard) SetupGame(string filepath){
         string separator = Environment.NewLine + Environment.NewLine;
-        List<string> gameDetails = InputHandler.ValuesToStringList(filepath, separator);
+        List<string> gameDetails = Inputs.ListStrings(filepath, separator);
         //Turn the first line of the input into a list of all the numbers to be drawn and convert them to int
         List<string> numbersDrawnStr = gameDetails[0].Split(',').ToList();
         List<int> numbersDrawn = new();
