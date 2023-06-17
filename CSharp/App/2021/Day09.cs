@@ -3,10 +3,10 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day09 : Day{
     public override long Part1(string filepath){
-        return CalculateTotalRisk(LowPoints(MapTerrain(InputHandler.LinesToStringList(filepath))));        
+        return CalculateTotalRisk(LowPoints(MapTerrain(Inputs.ListLines(filepath))));        
     }
     public override long Part2(string filepath){
-        //List<string> terrain = InputHandler.ConvertLinesToStringList(filepath);
+        //List<string> terrain = Inputs.ListLines(filepath);
 
         //var map = MapTerrain(terrain);
         //List<List<int>> lowPoints = LowPoints(map);

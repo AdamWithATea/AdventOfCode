@@ -4,10 +4,10 @@ using System;
 namespace AOC2021;
 public class Day03 : Day{
     public override long Part1(string filepath){
-        return RunDiagnostics("PowerConsumption", InputHandler.LinesToStringList(filepath));
+        return RunDiagnostics("PowerConsumption", Inputs.ListLines(filepath));
     }
     public override long Part2(string filepath){
-        return RunDiagnostics("LifeSupport", InputHandler.LinesToStringList(filepath));
+        return RunDiagnostics("LifeSupport", Inputs.ListLines(filepath));
     }
     static int RunDiagnostics (string task, List<string> report){
         int mostCommon = DiagnosticResults(report, task, "Most");

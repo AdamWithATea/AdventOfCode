@@ -3,8 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace AdventOfCode;
-public static class InputHandler{
-    public static string BuildFilePath(int year, int day, bool useExampleFile){
+public static class Inputs{
+    public static string BuildFilepath(int year, int day, bool useExampleFile){
         using IHost host = Host.CreateDefaultBuilder().Build();
         IConfiguration settings = host.Services.GetRequiredService<IConfiguration>();
 
@@ -19,13 +19,13 @@ public static class InputHandler{
 
         return $"{basePath}Inputs{slash}{year}{slash}{exampleFolder}{fileName}";        
     }
-    public static List<string> LinesToStringList(string filepath){
+    public static List<string> ListLines(string filepath){
         return File.ReadAllLines(filepath).ToList();
     }
-    public static List<string> ValuesToStringList(string filepath, string separator){
+    public static List<string> ListStrings(string filepath, string separator){
         return File.ReadAllText(filepath).Split(separator).ToList();        
     }
-    public static List<int> ValuesToIntList(string filepath, string separator){
+    public static List<int> ListInts(string filepath, string separator){
         return File.ReadAllText(filepath).Split(separator).Select(int.Parse).ToList();        
     }
 }
