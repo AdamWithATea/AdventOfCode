@@ -3,133 +3,69 @@ using AdventOfCode;
 namespace AOC2021;
 public class Day04 : Day{
     public override long Part1(string filepath){
-        var (numbersDrawn, bingoCards, scoreboard) = SetupGame(filepath);
-        scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);        
-        int lowestTurn = numbersDrawn.Count, winningScore = 0;
-
-        for (int index = 0; index < bingoCards.Count; index++){
-            if (scoreboard[2, index] < lowestTurn){
-                winningScore = scoreboard[1, index];
-                lowestTurn = scoreboard[2, index];
-            }
-        }
-        return winningScore;
+        return Play(filepath).Item1;
     }
     public override long Part2(string filepath){
-        var (numbersDrawn, bingoCards, scoreboard) = SetupGame(filepath);
-        scoreboard = PlayBingo(numbersDrawn, bingoCards, scoreboard);
-        int highestTurn = 0, losingScore = 0;
-        
-        for (int index = 0; index < bingoCards.Count; index++){
-            if (scoreboard[2, index] > highestTurn){
-                losingScore = scoreboard[1, index];
-                highestTurn = scoreboard[2, index];
+        return Play(filepath).Item2;
+    }
+    static (int, int) Play(string filepath){
+        List<string> input = Inputs.ListStrings(filepath, Environment.NewLine + Environment.NewLine);
+        List<int> numbers = input[0].Split(',').ToList().Select(s => int.Parse(s)).ToList();
+        List<int[,]> cards = BingoCards(input.GetRange(1,input.Count()-1));
+        return Winners(numbers, cards);
+    }
+    static List<int[,]> BingoCards(List<string> cardsAsStrings){
+        List<int[,]> cards = new();
+        foreach (string cardString in cardsAsStrings){
+            int[,] card = new int[6,6];
+            for (int x = 0; x < 5; x++){
+                string row = cardString.Split(Environment.NewLine)[x];
+                for (int y = 0; y < 5; y++){
+                    string value = row.Split(' ', StringSplitOptions.RemoveEmptyEntries)[y];
+                    card[x,y] = Convert.ToInt32(value);
+                }
             }
+            cards.Add(card);
         }
-        return losingScore;
+        return cards;
     }
-    static int[,] PlayBingo(List<int> numbersDrawn, List<int[,]> bingoCards, int[,] scoreboard){
-        int cardNumber = 1;
-
-        foreach (int[,] bingoCard in bingoCards){
-            int index = cardNumber - 1;
-            var (cardScore, winningTurn) = CalculateCardScore(numbersDrawn, bingoCard);
-            scoreboard[0, index] = cardNumber;
-            scoreboard[1, index] = cardScore;
-            scoreboard[2, index] = winningTurn;
-            cardNumber++;
+    static (int, int) Winners(List<int> numbers, List<int[,]> cards){
+        var first = (numbers.Count + 1, 0);
+        var last = (-1, 0);
+        for (int i = 0; i < cards.Count; i++){
+            var score = CardScore(numbers, cards[i]);
+            first = first.Item1 > score.Item1 ? score : first;
+            last = last.Item1 < score.Item1 ? score : last;
         }
-        return scoreboard;
+        return (first.Item2, last.Item2);
     }
-    static (List<int> numbersDrawn, List<int[,]> bingoCards, int[,] scoreboard) SetupGame(string filepath){
-        string separator = Environment.NewLine + Environment.NewLine;
-        List<string> gameDetails = Inputs.ListStrings(filepath, separator);
-        //Turn the first line of the input into a list of all the numbers to be drawn and convert them to int
-        List<string> numbersDrawnStr = gameDetails[0].Split(',').ToList();
-        List<int> numbersDrawn = new();
-        foreach (string number in numbersDrawnStr)
-            {numbersDrawn.Add(Convert.ToInt32(number));}
-
-        //The rest of gameDetails is already split into bingo cards, so bingoCards is
-        // populated by copying gameDetails then removing that first line of numbers
-        List<string> bingoCardStrings = gameDetails.ToList();
-        bingoCardStrings.RemoveAt(0);
-        List<int[,]> bingoCards = new();
-        foreach (string bingoCardString in bingoCardStrings)
-            {bingoCards.Add(ConvertCardToArray(bingoCardString));}
-
-        //Create a scoreboard to keep track of the each card's number, final score when
-        // it won and which turn it won on
-        int[,] scoreboard = new int[3, bingoCardStrings.Count];
-        return (numbersDrawn, bingoCards, scoreboard);
-    }
-    static int[,] ConvertCardToArray(string bingoCardString){
-        int[,] bingoCard = new int[5, 5];
-        string[] cardLines = bingoCardString.Split(Environment.NewLine);
-
-        for (int line = 0; line < cardLines.Length; line++){
-            string formattedLine = RemoveExtraSpaces(cardLines[line]);
-            string[] lineValues = formattedLine.Split(" ");
-            
-            for (int value = 0; value < lineValues.Length; value++)
-                {bingoCard[value, line] = Convert.ToInt32(lineValues[value]);}
-        }
-        return bingoCard;
-    }
-    static (int cardScore, int winningTurn) CalculateCardScore(List<int> numbersDrawn, int[,] bingoCard){
-        int turnNumber = 1, markedNumbersSum = 0, allNumbersSum = 0, lastNumberDrawn = 0;
-        int[] rowTallies = new int[5], columnTallies = new int[5];
-        bool hasWon;
-        foreach (int i in bingoCard) {allNumbersSum += i;}
-
-        foreach (int numberDrawn in numbersDrawn){
-            for (int row = 0; row < 5; row++){
-                var (lineTally, markedNumbersLineSum) = CheckLine("row", row, bingoCard, numberDrawn);
-                rowTallies[row] += lineTally;
-                markedNumbersSum += markedNumbersLineSum;
+    static (int, int) CardScore(List<int> numbers, int[,] card){
+        var score = (0,0);
+        int markedSum = 0, cardSum = 0;
+        for (int x = 0; x < 5; x++)
+            { for(int y = 0; y < 5; y++) { cardSum += card[x,y]; } }
+        for (int n = 0; n < numbers.Count; n++){
+            for (int x = 0; x < 5; x++){
+                for(int y = 0; y < 5; y++){
+                    if (numbers[n] == card[x,y]){
+                        card[x,5] += 1;
+                        card[5,y] += 1;
+                        markedSum += card[x,y];
+                    }
+                }
             }
-            for (int column = 0; column < 5; column++){
-                var (lineTally, markedNumbersLineSum) = CheckLine("column", column, bingoCard, numberDrawn);
-                columnTallies[column] += lineTally;
-                markedNumbersSum += markedNumbersLineSum;
-            }
-
-            hasWon = rowTallies.Contains(5) || columnTallies.Contains(5);
-            if (hasWon == true){
-                lastNumberDrawn = numberDrawn;
+            if (CardWon(card)){
+                card[5,5] = (cardSum - markedSum) * numbers[n];
+                score = (n, card[5,5]); //(Winning turn, Final score)                
                 break;
             }
-            turnNumber++;
         }
-        int cardScore = (allNumbersSum - markedNumbersSum) * lastNumberDrawn;
-        return (cardScore, turnNumber);
+        return(score);
     }
-    static (int lineTally, int markedNumbersLineSum) CheckLine(string lineType, int lineNumber, int[,] bingoCard, int numberDrawn){
-        int lineTally = 0, markedNumbersLineSum = 0, columnIndex, rowIndex;
-
-        for (int i = 0; i < 5; i++){
-            if (lineType == "row"){
-                rowIndex = lineNumber;
-                columnIndex = i;
-            }
-            else {columnIndex = lineNumber;
-                rowIndex = i;
-            }
-
-            if (Convert.ToInt32(bingoCard[columnIndex, rowIndex]) == numberDrawn){
-                lineTally++;
-                if (lineType == "row")
-                //Only add to the marked numbers sum on rows, as columns cover the same squares
-                // on the card from the other direction so it would count each one twice
-                { markedNumbersLineSum += numberDrawn; }
-            }
-        }
-        return (lineTally, markedNumbersLineSum);
-    }
-    static string RemoveExtraSpaces(string line){
-        if (Convert.ToString(line[0]) == " ")
-        { line = line[1..]; }
-        line = line.Replace("  ", " ");
-        return line;
+    static bool CardWon(int[,] card){
+        bool won = false;
+        for (int i = 0; i < 5; i++)
+            { if (card[i,5]==5 | card[5,i]==5) { won = true; } }
+        return won;
     }
 }
