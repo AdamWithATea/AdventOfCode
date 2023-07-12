@@ -56,7 +56,7 @@ public class Day04 : Day{
             }
             if (CardWon(card)){
                 card[5,5] = (cardSum - markedSum) * numbers[n];
-                score = (n, card[5,5]); //(Winning turn, Final score)                
+                score = (n, card[5,5]); //(Winning turn, Final score)
                 break;
             }
         }

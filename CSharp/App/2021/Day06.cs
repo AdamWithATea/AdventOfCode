@@ -14,7 +14,7 @@ public class Day06 : Day{
         long[] populationByAge = GroupFishByAge(fishAges);
         for (int day = 1; day <= 256; day++)
             {populationByAge = AddOneDay(populationByAge);}
-        return  populationByAge.Sum();        
+        return  populationByAge.Sum();
     }
     private static long[] AddOneDay(long[] existingPopulation){
         long[] newPopulation = new long[9];

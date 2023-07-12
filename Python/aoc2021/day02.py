@@ -13,7 +13,7 @@ def part2(use_examples):
     return plot_course(inputs.list_strings(filepath, '\n'), True)
 
 def plot_course (directions, use_aim):
-    horizontal = depth = aim = 0    
+    horizontal = depth = aim = 0
     for direction in directions:
         heading = direction.split(' ')[0]
         distance = int(direction.split(' ')[1])
