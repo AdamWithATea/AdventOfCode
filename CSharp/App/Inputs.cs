@@ -17,15 +17,15 @@ public static class Inputs{
         string exampleFolder = (useExampleFile == true) ? $"Examples{slash}" : "";
         string fileName = day < 10 ? $"Day0{day}.txt" : $"Day{day}.txt";
 
-        return $"{basePath}Inputs{slash}{year}{slash}{exampleFolder}{fileName}";        
+        return $"{basePath}Inputs{slash}{year}{slash}{exampleFolder}{fileName}";
     }
     public static List<string> ListLines(string filepath){
         return File.ReadAllLines(filepath).ToList();
     }
     public static List<string> ListStrings(string filepath, string separator){
-        return File.ReadAllText(filepath).Split(separator).ToList();        
+        return File.ReadAllText(filepath).Split(separator).ToList();
     }
     public static List<int> ListInts(string filepath, string separator){
-        return File.ReadAllText(filepath).Split(separator).Select(int.Parse).ToList();        
+        return File.ReadAllText(filepath).Split(separator).Select(int.Parse).ToList();
     }
 }

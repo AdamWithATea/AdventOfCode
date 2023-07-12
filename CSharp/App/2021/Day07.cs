@@ -5,7 +5,7 @@ public class Day07 : Day{
     public override long Part1(string filepath){
         return MedianFuelUsage(Inputs.ListInts(filepath, ","));
     }
-    public override long Part2(string filepath){        
+    public override long Part2(string filepath){
         return LeastFuelUsage(Inputs.ListInts(filepath, ","), 1);
     }
     private static int MedianFuelUsage(List<int> crabs){
