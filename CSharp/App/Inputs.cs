@@ -1,23 +1,16 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace AdventOfCode;
 public static class Inputs{
     public static string BuildFilepath(int year, int day, bool useExampleFile){
-        using IHost host = Host.CreateDefaultBuilder().Build();
-        IConfiguration settings = host.Services.GetRequiredService<IConfiguration>();
-
-        // Get the relevant filepath for the current platform from appsettings.json
-        string platform = settings.GetValue<string>("Environment:Platform");
-        string platformPath = settings.GetValue<string>($"Environment:Root:{platform}");
+        //Get the relevant filepath for the current platform from the configuration
+        string platform = Settings.Platform;
+        string path = Settings.Path;
         //Expand out any environment variables in the path (e.g. %UserProfile% and %HOME%)
-        string basePath = Environment.ExpandEnvironmentVariables(platformPath);
+        string expandedPath = Environment.ExpandEnvironmentVariables(path);
         string slash = (platform == "Windows") ? "\\" : "/";
         string exampleFolder = (useExampleFile == true) ? $"Examples{slash}" : "";
         string fileName = day < 10 ? $"Day0{day}.txt" : $"Day{day}.txt";
 
-        return $"{basePath}Inputs{slash}{year}{slash}{exampleFolder}{fileName}";
+        return $"{expandedPath}Inputs{slash}{year}{slash}{exampleFolder}{fileName}";
     }
     public static List<string> ListLines(string filepath){
         return File.ReadAllLines(filepath).ToList();
