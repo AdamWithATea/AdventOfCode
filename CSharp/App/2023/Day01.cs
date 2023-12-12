@@ -4,20 +4,16 @@ using AdventOfCode;
 namespace AOC2023;
 public class Day01 : Day{
     public override long Part1(string filepath){
-        if (filepath.Contains("Examples")){
-            filepath = filepath[..^4] + "-Part1.txt";
-        }
+        if (filepath.Contains("Examples"))
+            { filepath = filepath[..^4] + "-Part1.txt"; }
         List<string> inputs = Inputs.ListLines(filepath);
-        int calibrationSum = CalibrationSum(inputs, false);
-        return calibrationSum;
+        return CalibrationSum(inputs, false);
     }
     public override long Part2(string filepath){
-        if (filepath.Contains("Examples")){
-            filepath = filepath[..^4] + "-Part2.txt";
-        }
+        if (filepath.Contains("Examples"))
+            { filepath = filepath[..^4] + "-Part2.txt"; }
         List<string> inputs = Inputs.ListLines(filepath);
-        int calibrationSum = CalibrationSum(inputs, true);
-        return calibrationSum;
+        return CalibrationSum(inputs, true);
     }
     private static int CalibrationSum(List<string> inputs, bool includeWords){
         int calibrationSum = 0;
@@ -34,10 +30,7 @@ public class Day01 : Day{
             @"[1-9]|one|two|three|four|five|six|seven|eight|nine" : @"[1-9]";
         RegexOptions options = rightToLeft ? RegexOptions.RightToLeft : RegexOptions.None;        
         string number = Regex.Matches(input, pattern, options)[0].Value;
-        return NumericDigit(number);
-    }
-    private static string NumericDigit(string input){
-        return input switch{
+        return number switch{
             "one" => "1",
             "two" => "2",
             "three" => "3",
@@ -47,7 +40,7 @@ public class Day01 : Day{
             "seven" => "7",
             "eight" => "8",
             "nine" => "9",
-            _ => input,
+            _ => number,
         };
     }
 }
